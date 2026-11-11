@@ -20,6 +20,8 @@ Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu
 
 - **Colours** come from the heart logo: Kenya green `#1f7a3a` and red `#d62839` on white, with a soft green mist `#eef3ef` for bands and ink `#1d1d1b`.
 - **Type**: Poppins (the logo's typeface) for headings and buttons, Literata for reading (Google Fonts).
+- **Premium face-lift** (the same approach as rafikioutreach.org): every card is "Pearl", white fading to a soft leaf green, with a hairline border, layered soft shadows and large rounded corners. On hover a card lifts, its photo eases in, a green-to-red line grows along its top and a soft light follows the pointer. Buttons have a gentle gradient and shadow.
+- **Motion** (`js/motion.js`): a green-to-red scroll line at the top, cards that rise in once as you scroll, numbers in the receipt that count up, photos that shimmer until they load, and a quick fade between pages. With reduced motion turned on, nothing moves and the pages look the same.
 - **The gift receipt** on the home page lists real dates, numbers and costs ($160 a wheelchair, $165 for 12 baskets). Add each new mission there and on `missions.html`.
 
 ## Before going live
