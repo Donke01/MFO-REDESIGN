@@ -1,31 +1,33 @@
-# Missions for Orphans — website redesign
+# Missions for Orphans: website redesign
 
-A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fast, dependency-free static site.
+A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fast static site with no build step. All text and photos are Missions for Orphans' own, from their current site.
 
 ## Pages
 
 | File | Page |
 | --- | --- |
-| `index.html` | Home: hero, the Kipsaina story, programs, latest missions log, video, giving funds, Lani’s blog |
+| `index.html` | Home: hero, "What your gifts did this year" (the gift receipt), programs, how it began, video, team, giving funds |
 | `who-we-are.html` | Story, co-founder quote, team |
-| `what-we-do.html` | Six programs in detail, giving funds |
-| `donate.html` | Five funds, other ways to give |
-| `contact.html` | Phone, mailing address, contact form |
+| `what-we-do.html` | The six programs in detail, giving funds |
+| `missions.html` | Every dated mission with its photo gallery (tap for full size) |
+| `donate.html` | The five funds, other ways to give |
+| `contact.html` | Phone, address, contact form |
+| `blog.html`, `blog/*.html` | Lani's blog: the three posts from the current site |
 
-Shared styles live in `css/styles.css`, behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form).
+Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form). Photos are in `assets/img/` as WebP.
 
-## Design
+## Design (direction A: "Where your gift goes")
 
-- **Palette** from Trans Nzoia’s highland fields and maize: highland green `#2c5a3a` / `#1d3d27`, maize `#e9b730` for every giving action, field tint `#edf2e7`, ink `#18241c`.
-- **Type**: Young Serif for headings, Figtree for text (Google Fonts).
-- **Latest missions** is a dated field log: each report leads with its headline number (190 widows fed, 10 wheelchairs, 506 widows served) with photos that open full size.
+- **Colours** come from the heart logo: Kenya green `#1f7a3a` and red `#d62839` on white, with a soft green mist `#eef3ef` for bands and ink `#1d1d1b`.
+- **Type**: Poppins (the logo's typeface) for headings and buttons, Literata for reading (Google Fonts).
+- **The gift receipt** on the home page lists real dates, numbers and costs ($160 a wheelchair, $165 for 12 baskets). Add each new mission there and on `missions.html`.
 
 ## Before going live
 
-1. **Images** are loaded from the current site’s `/wp-content/uploads/`. Copy them into an `assets/` folder (or keep the WordPress media library) before the old site changes.
-2. **Donate buttons** link to the existing GiveWP forms on missionsfororphans.org (`/orphan-care-and-support/`, `/community-outreach/`, `/onsite-projects/`, `/widows-support/`, `/where-its-needed-most/`).
-3. **Contact form** needs an endpoint: set `data-endpoint` on the form in `contact.html` (for example a Formspree URL). Until then it tells visitors to call.
-4. **Founding story**: the old “What we do” page says MFO began after a trip to Uganda and a girl named Helen; “Who we are” says Kenya, Bondo, Barkowino Primary School. This redesign uses the “Who we are” version. Confirm with the founders.
+1. **Donate buttons** go to the existing GiveWP forms on missionsfororphans.org (`/orphan-care-and-support/`, `/widows-support/`, `/community-outreach/`, `/onsite-projects/`, `/where-its-needed-most/`). Keep those forms, or point the links at a new donation page.
+2. **Contact form** needs somewhere to send messages: set `data-endpoint` on the form in `contact.html` (for example a Formspree URL). Until then it asks visitors to call.
+3. **Founding story**: the old "What we do" page says MFO began after a trip to Uganda; "Who we are" says Kenya (Bondo, Barkowino Primary School). This redesign uses the "Who we are" version. Confirm with the founders.
+4. **Team roles**: the old site gives roles only for Coney, Lani, Ryan and Edward & Isabel. The others are shown as "Family"; replace with their real roles.
 
 ## Preview locally
 
