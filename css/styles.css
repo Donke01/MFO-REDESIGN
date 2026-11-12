@@ -121,32 +121,30 @@ p { margin: 0 0 1em; }
 .band.indigo h2, .band.indigo h3 { color: #fff; }
 @media (max-width: 700px) { .band { padding: 56px 0; } }
 
-/* home hero */
-.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; padding: 56px 0 88px; }
-.place { display: inline-flex; padding: 7px 14px; border-radius: 999px; background: var(--butter); color: #8A5A00; font: 600 .88rem var(--read); }
-.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); font-weight: 800; letter-spacing: -.035em; margin: 22px 0 0; }
-.hero p { font-size: 1.22rem; color: var(--soft); max-width: 32em; margin: 22px 0 30px; }
-.acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.collage { position: relative; margin: 0; padding: 0 0 30px 40px; }
-.collage .sun { position: absolute; right: -10px; top: -30px; width: 76%; aspect-ratio: 1; border-radius: 50%; background: var(--sun); }
-.collage img { position: relative; width: 100%; aspect-ratio: 440 / 470; object-fit: cover; border-radius: 999px 999px 32px 32px; box-shadow: 0 30px 60px -28px rgba(35, 48, 107, .55); }
-.sticker { position: absolute; left: 0; bottom: 0; display: grid; gap: 2px; padding: 14px 20px 16px; background: #fff; border-radius: 20px; text-decoration: none; transform: rotate(4deg); box-shadow: 0 18px 40px -16px rgba(35, 48, 107, .45); transition: transform .3s var(--ease); }
-.sticker:hover { transform: rotate(0deg) translateY(-2px); }
-.sticker b { font: 700 1.45rem/1.1 var(--head); color: var(--coral); }
-.sticker span { font: 600 .88rem var(--read); color: var(--soft); }
-@media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; gap: 28px; padding: 24px 0 56px; }
-  .hero h1 { margin-top: 16px; }
-  .hero p { margin: 16px 0 22px; }
-  .hero .acts .btn { flex: 1 1 auto; }
-  .collage { padding: 0 0 26px 0; }
-  .collage .sun { right: -16px; top: -16px; width: 64%; }
-  .collage img { aspect-ratio: 350 / 300; }
-  .sticker { left: 12px; }
+/* home hero: centred headline over three arches (option B, Figma page "Hero options") */
+.hero { padding: 64px 0 0; text-align: center; overflow: hidden; }
+.hero h1 { max-width: 15em; margin: 0 auto; font-size: clamp(2.3rem, 4.8vw, 4rem); font-weight: 800; letter-spacing: -.035em; }
+.hero p { max-width: 34em; margin: 22px auto 30px; font-size: 1.2rem; color: var(--soft); }
+.hero .acts { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.arches { display: flex; justify-content: center; align-items: flex-end; gap: 40px; width: min(1160px, 100% - 40px); margin: 56px auto 0; }
+.arch { position: relative; flex: 0 1 360px; height: 400px; border: 8px solid var(--indigo); border-bottom: 0; border-radius: 999px 999px 0 0; overflow: hidden; background: var(--sky); text-decoration: none; transition: transform .3s var(--ease); }
+.arch.a2 { border-color: var(--coral); height: 430px; }
+.arch.a3 { border-color: var(--sun); }
+.arch:hover { transform: translateY(-6px); }
+.arch img { width: 100%; height: 100%; object-fit: cover; }
+.arch span { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); white-space: nowrap; padding: 8px 16px; border-radius: 999px; background: #fff; color: var(--indigo); font: 700 1rem/1.1 var(--head); box-shadow: 0 10px 24px -12px rgba(35, 48, 107, .55); }
+@media (max-width: 760px) {
+  .hero { padding-top: 30px; }
+  .hero p { font-size: 1.08rem; margin: 16px auto 24px; }
+  .arches { gap: 0; width: calc(100% - 24px); margin-top: 36px; }
+  .arch { flex: 0 0 calc((100% + 24px) / 3); margin-inline: -4px; height: clamp(190px, 62vw, 300px); border-width: 5px; }
+  .arch.a2 { position: relative; z-index: 1; height: clamp(214px, 70vw, 340px); }
+  .arch:hover { transform: none; }
+  .arch span { bottom: 12px; padding: 6px 10px; font-size: .82rem; }
 }
 
 /* what your gifts did: colour stat cards */
-.gifts { padding: 0 0 88px; }
+.gifts { padding: 80px 0 88px; }
 .gifts h2 { margin-bottom: 30px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .stat-card { display: flex; align-items: center; gap: 18px; padding: 26px 22px 26px 28px; border-radius: 32px; text-decoration: none; transition: transform .3s var(--ease), box-shadow .3s; }
@@ -162,7 +160,7 @@ p { margin: 0 0 1em; }
 .gifts .more a { font: 600 1.05rem var(--head); color: var(--coral); }
 @media (max-width: 980px) { .stat-card img { width: 72px; height: 72px; } }
 @media (max-width: 860px) {
-  .gifts { padding-bottom: 56px; }
+  .gifts { padding: 48px 0 56px; }
   /* phones: swipe through the stat cards */
   .stats { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 4px 20px 14px; scrollbar-width: none; }
   .stats::-webkit-scrollbar { display: none; }
@@ -357,13 +355,11 @@ footer .legal { margin-top: 36px; font-size: .88rem; }
   html.mo-arrive main { animation: moIn .4s ease backwards; }
   html.mo-leave main { opacity: 0; transition: opacity .18s ease; }
   @keyframes moIn { from { opacity: 0; transform: translateY(8px); } }
-  html.mo :is(.pcard, .post-card, .gallery button, .collage, .program, .mc-ph, .tcard, .stat-card, .fund) img:not(.mo-ok) { background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 70%) 0 0 / 220% 100%, #E6EEF9; animation: moShimmer 1.6s linear infinite; }
+  html.mo :is(.pcard, .post-card, .gallery button, .arch, .program, .mc-ph, .tcard, .stat-card, .fund) img:not(.mo-ok) { background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 70%) 0 0 / 220% 100%, #E6EEF9; animation: moShimmer 1.6s linear infinite; }
   @keyframes moShimmer { from { background-position: 120% 0, 0 0; } to { background-position: -120% 0, 0 0; } }
-  .hero h1, .place { animation: moRise .8s var(--ease) both; }
+  .hero h1 { animation: moRise .8s var(--ease) both; }
   .hero p, .hero .acts { animation: moRise .8s var(--ease) .12s both; }
-  .collage .sun { animation: moSun 1.1s var(--ease) .1s both; }
-  .collage img { animation: moRise .9s var(--ease) .18s both; }
-  .sticker { animation: moPop .7s var(--ease) .6s both; }
+  .arch { animation: moRise .9s var(--ease) backwards; } .arch.a1 { animation-delay: .2s; } .arch.a2 { animation-delay: .3s; } .arch.a3 { animation-delay: .4s; }
   @keyframes moRise { from { opacity: 0; transform: translateY(16px); } }
   @keyframes moSun { from { opacity: 0; transform: scale(.6) translateY(30px); } }
   @keyframes moPop { from { opacity: 0; transform: rotate(12deg) scale(.8); } }
