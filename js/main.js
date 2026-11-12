@@ -22,7 +22,7 @@ if (toggle && nav) {
 const box = document.querySelector('.lightbox');
 if (box) {
   const img = box.querySelector('img');
-  document.querySelectorAll('.gallery button').forEach((btn) => {
+  document.querySelectorAll('.gallery button, .mc-ph').forEach((btn) => {
     btn.addEventListener('click', () => {
       const thumb = btn.querySelector('img');
       img.src = btn.dataset.full || thumb.src;
