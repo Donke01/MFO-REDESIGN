@@ -93,5 +93,25 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
   });
 });
 
+// Read more: fade long text after a few lines; the button opens the rest
+document.querySelectorAll('.more').forEach((m) => {
+  const inner = m.querySelector('.more-in'), btn = m.querySelector('.more-btn');
+  const check = () => {
+    if (m.classList.contains('open')) return;
+    m.classList.add('clips');
+    const over = inner.scrollHeight > inner.clientHeight + 4;
+    m.classList.toggle('clips', over); btn.hidden = !over;
+  };
+  check(); addEventListener('resize', check);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(check);
+  btn.addEventListener('click', () => {
+    const open = !m.classList.contains('open');
+    if (open) { inner.style.maxHeight = inner.scrollHeight + 'px'; setTimeout(() => { if (m.classList.contains('open')) inner.style.maxHeight = 'none'; }, 480); }
+    else { inner.style.maxHeight = inner.scrollHeight + 'px'; requestAnimationFrame(() => { inner.style.maxHeight = ''; }); }
+    m.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? 'Show less' : 'Read more';
+  });
+});
+
 // Footer year
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });

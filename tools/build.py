@@ -51,6 +51,10 @@ def phero(h1, intro, img=None, alt='', ring='coral', actions='', up='', meta='',
   return (f'<section class="phero{"" if img else " no-art"}"><div class="ph-copy">{meta}<h1>{h1}</h1>'
           + (f'<p>{intro}</p>' if intro else '') + (f'<div class="acts">{actions}</div>' if actions else '') + f'</div>{art}</section>')
 
+def more(inner, lines=4):
+  """Full text, softly faded after a few lines, with a Read more button (instead of cutting the story short)."""
+  return f'<div class="more" style="--lines:{lines}"><div class="more-in">{inner}</div><button class="more-btn" type="button" aria-expanded="false" hidden>Read more</button></div>'
+
 def bold_num(h):  # "190 widows fed" -> "<b>190</b> widows fed"
   m = re.match(r'^(\$?[\d,.]+\+?)\s+(.*)$', h)
   return f'<b>{html.escape(m.group(1))}</b> {html.escape(m.group(2))}' if m else html.escape(h)
@@ -67,6 +71,26 @@ NAV = [('who-we-are.html', 'Who we are'), ('what-we-do.html', 'What we do'), ('m
 
 import hashlib
 def ver(f): return hashlib.md5(open(os.path.join(R, f), 'rb').read()).hexdigest()[:8]
+
+
+# footer icons: contact rows, and WhatsApp / Facebook / Instagram in their own colours (links in content/site.json)
+ICON_CALL = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
+ICON_MSG = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H8l-4 4V5a1 1 0 0 1 1-1z"/></svg>'
+ICON_PIN = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>'
+ICON_FAQ = '<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2 1-1.2 1.8"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>'
+SOC = {
+  'whatsapp': ('WhatsApp', '<svg viewBox="0 0 24 24" width="22" height="22"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>'),
+  'facebook': ('Facebook', '<svg viewBox="0 0 24 24" width="22" height="22"><path fill="#fff" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.6V4.4a22 22 0 0 0-2.4-.1c-2.4 0-4 1.4-4 4.1v2.4H7.6V14h2.7v8z"/></svg>'),
+  'instagram': ('Instagram', '<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="#fff"/></svg>'),
+}
+def social_row():
+  links = []
+  for k, (name, svg) in SOC.items():
+    v = (SITECONF.get('social') or {}).get(k)
+    if not v: continue
+    if k == 'whatsapp' and not str(v).startswith('http'): v = 'https://wa.me/' + re.sub(r'\D', '', str(v))
+    links.append(f'<a class="soc soc-{k}" href="{E(v)}" target="_blank" rel="noopener" aria-label="Missions for Orphans on {name}">{svg}</a>')
+  return f'<div class="socials"><span>Follow us</span><div>{"".join(links)}</div></div>' if links else ''
 
 def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg', kind='website', extra=''):
   up = '../' * depth
@@ -114,11 +138,15 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
 </main>
 <footer><div class="wrap">
   <div class="cols">
-    <div class="logo"><img src="{up}assets/img/heart.png" alt="Missions for Orphans" width="75" height="64">Kipsaina, near Kitale, Kenya</div>
-    <div><b>Write or call</b>2497 N. Delaney Dr.<br>Buckeye, AZ 85396<br><a href="tel:+16026165557">602-616-5557</a></div>
-    <div><b>Pages</b><ul>{''.join('<li><a href="%s%s">%s</a></li>' % (up, h, t) for h, t in NAV)}</ul></div>
-    <div><b>More</b><ul><li><a href="{up}land.html">Our land and farm</a></li><li><a href="{up}schools.html">Schools and training</a></li><li><a href="{up}widow-homes.html">Fund a widow's home</a></li><li><a href="{up}faq.html">Questions</a></li></ul></div>
-    <div><b>Give</b><ul><li><a href="{up}donate.html">Donate</a></li><li><a href="{up}donate.html#monthly">Give every month</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li></ul></div>
+    <div class="logo"><img src="{up}assets/img/heart.png" alt="Missions for Orphans" width="75" height="64">Kipsaina, near Kitale, Kenya{social_row()}</div>
+    <div class="f-contact"><b>Contact us</b><ul>
+      <li><a href="tel:+16026165557"><span class="fi fi-call" aria-hidden="true">{ICON_CALL}</span>602-616-5557</a></li>
+      <li><a href="{up}contact.html"><span class="fi fi-msg" aria-hidden="true">{ICON_MSG}</span>Send us a message</a></li>
+      <li><span class="fi fi-pin" aria-hidden="true">{ICON_PIN}</span><span>2497 N. Delaney Dr.<br>Buckeye, AZ 85396</span></li>
+      <li><a href="{up}faq.html"><span class="fi fi-faq" aria-hidden="true">{ICON_FAQ}</span>Questions</a></li>
+    </ul></div>
+    <div><b>More</b><ul><li><a href="{up}land.html">Our land and farm</a></li><li><a href="{up}schools.html">Schools and training</a></li><li><a href="{up}widow-homes.html">Fund a widow's home</a></li></ul></div>
+    <div><b>Give</b><ul><li><a href="{up}donate.html#monthly">Give every month</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li></ul></div>
   </div>
   <p class="legal">Missions for Orphans is a 501(c)(3) non-profit. Donations are tax deductible. © <span data-year>2026</span> Missions for Orphans.</p>
 </div></footer>
@@ -171,7 +199,7 @@ def latest():
   first = f'<img src="assets/img/missions/{ph[0]}.webp" alt="{E(m["alt"])}" loading="lazy" width="1200" height="900">' + ''.join(f'<img src="assets/img/missions/{f}.webp" alt="" loading="lazy" width="1200" height="900">' for f in ph[1:])
   out = f'''    <article class="news">
       <div class="news-ph">{first}</div>
-      <div class="news-in"><time class="chip blush" datetime="{m['date']}">{E(m['when'])}</time><h3>{E(m['title'])}</h3><p>{E(m.get('summary') or m['story'][0])}</p><a class="link" href="missions.html#{m['id']}">Read the mission report</a></div>
+      <div class="news-in"><time class="chip blush" datetime="{m['date']}">{E(m['when'])}</time><h3>{E(m['title'])}</h3>{more("".join("<p>%s</p>" % E(x) for x in m['story']), 5)}<a class="link" href="missions.html#{m['id']}">Read the mission report</a></div>
     </article>'''
   pin = next((x for x in MISSIONS[1:] if x.get('status')), None)
   if pin:
@@ -179,7 +207,7 @@ def latest():
     out += f'''
     <article class="news small">
       <img src="assets/img/missions/{pin['photos'][0]}.webp" alt="{E(pin['alt'])}" loading="lazy" width="1200" height="900">
-      <div class="news-in"><span class="chip butter">{E(pin['status'])}</span><h3>{E(pin['title'])}</h3><p>{E(pin.get('summary') or pin['story'][0])}</p><a class="link" href="{href}">{'Follow her home' if href == 'widow-homes.html' else 'Read the mission report'}</a></div>
+      <div class="news-in"><span class="chip butter">{E(pin['status'])}</span><h3>{E(pin['title'])}</h3>{more("".join("<p>%s</p>" % E(x) for x in pin['story']), 3)}<a class="link" href="{href}">{'Follow her home' if href == 'widow-homes.html' else 'Read the mission report'}</a></div>
     </article>'''
   return out
 
@@ -443,7 +471,7 @@ page('land.html', 'Our land and farm: Missions for Orphans', 'Seven acres near K
 
 # ---------------------------------------------------------------- schools and training
 GRADS = next(v for kind, v in POSTS['wp-february-22-2025'] if kind == 'grads')
-GRADCARDS = ''.join(f'<figure><img src="assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b><span>{E(sc.split(', who will')[0])}</span></figcaption></figure>' for n, sc, f in GRADS)
+GRADCARDS = ''.join(f'<figure><img src="assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b>{more('<span>' + E(sc) + '</span>', 4)}</figcaption></figure>' for n, sc, f in GRADS)
 schools = phero('Schools and training', 'There is no free school here. We pay fees, buy uniforms and shoes, run preschools, and help young people learn a trade.', 'blog/img_4305.webp', 'Two village girls in their school uniforms', 'indigo', w=1050, h=1400) + f'''
 <section class="wrap" style="padding-top:72px" aria-labelledby="cost">
   <h2 id="cost">What school costs in Kipsaina</h2>
@@ -523,7 +551,7 @@ for i, (s, t, c, k, x) in enumerate(BLOG):
     kind, v = b[0], b[1]
     if kind == 'img': pend.append(v)
     elif kind == 'grads':
-      flush(); parts.append('<div class="grads">' + ''.join(f'<figure><img src="../assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b><span>{E(sc)}</span></figcaption></figure>' for n, sc, f in v) + '</div>')
+      flush(); parts.append('<div class="grads">' + ''.join(f'<figure><img src="../assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b>{more('<span>' + E(sc) + '</span>', 4)}</figcaption></figure>' for n, sc, f in v) + '</div>')
     else: flush(); parts.append('<p>%s</p>' % E(v))
   flush()
   nav = '<nav class="post-nav" aria-label="More posts">' + (f'<a href="{BLOG[i - 1][0]}.html">Newer: {E(BLOG[i - 1][1])}</a>' if i > 0 else '<a href="../blog.html">All posts</a>') + (f'<a href="{BLOG[i + 1][0]}.html">Older: {E(BLOG[i + 1][1])}</a>' if i + 1 < len(BLOG) else '<a href="../blog.html">All posts</a>') + '</nav>'

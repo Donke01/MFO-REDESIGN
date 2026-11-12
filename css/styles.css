@@ -191,7 +191,6 @@ p { margin: 0 0 1em; }
   .gift.coral img, .gift.sun img { width: 52px; height: 52px; border-width: 3px; margin-bottom: -6px; }
   .gift.coral b, .gift.sun b { margin-top: 0; font-size: 2.6rem; }
   .gift.coral .g-txt, .gift.sun .g-txt { max-width: none; margin-top: 8px; font-size: .9rem; line-height: 1.35; }
-  .g-x { display: none; }
 }
 
 /* home: latest from Kipsaina (newest mission + a home being built) */
@@ -336,7 +335,7 @@ p { margin: 0 0 1em; }
 .b-date { padding: 4px 12px; border-radius: 999px; background: #fff; color: var(--soft); font-size: .9rem; }
 article > .wrap > .prose { padding-top: 56px; }
 .prose .src { margin-top: 28px; font-size: .95rem; color: var(--soft); }
-.grads { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin: 28px 0; }
+.grads { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin: 28px 0; align-items: start; }
 .grads figure, .prose .grads figure { margin: 0; padding: 10px 10px 16px; background: #fff; border-radius: 26px; box-shadow: var(--lift); }
 .grads img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 18px; }
 .grads figcaption { display: grid; gap: 4px; padding: 12px 6px 0; }
@@ -674,3 +673,39 @@ main { overflow-x: clip; }
   .gift.coral .g-txt, .gift.sun .g-txt { font-size: .82rem; }
   .gift.coral img, .gift.sun img { width: 44px; height: 44px; }
 }
+
+/* Read more: the whole story is on the page; long ones fade after a few lines until opened (js/main.js) */
+.more-in { transition: max-height .45s var(--ease); }
+.more.clips .more-in { max-height: calc(var(--lines) * 1.6em); overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent); mask-image: linear-gradient(180deg, #000 45%, transparent); }
+.more.clips.open .more-in { -webkit-mask-image: none; mask-image: none; }
+.more-in > p { margin: 0 0 .8em; } .more-in > p:last-child { margin-bottom: 0; }
+.more-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; margin-top: 4px; padding: 0; border: 0; background: none; cursor: pointer; font: 600 1rem var(--head); color: var(--coral); }
+.more-btn::after { content: ""; width: 9px; height: 9px; margin-top: -3px; border-right: 2.4px solid currentColor; border-bottom: 2.4px solid currentColor; transform: rotate(45deg); transition: transform .25s var(--ease); }
+.more-btn[aria-expanded="true"]::after { transform: rotate(-135deg); margin-top: 4px; }
+.more-btn[hidden] { display: none; }
+.news-in .more { color: var(--soft); font-size: 1.08rem; }
+.news-in .more p { color: inherit; font-size: inherit; }
+.grads .more { font-size: .9rem; line-height: 1.4; }
+.grads .more.clips .more-in { max-height: calc(var(--lines) * 1.4em); }
+.grads .more-btn { font-size: .9rem; min-height: 30px; }
+
+/* footer: contact rows with coloured icons, and the social icons in their own colours */
+.f-contact ul { gap: 12px; margin-top: 4px; }
+.f-contact li, .f-contact li > a { display: flex; align-items: center; gap: 12px; }
+.f-contact li > a { text-decoration: none; }
+.f-contact li > a:hover { text-decoration: underline; }
+.f-contact li span:last-child { line-height: 1.35; }
+.fi { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; transition: transform .2s var(--ease); }
+.f-contact a:hover .fi { transform: scale(1.08); }
+.fi-call { background: var(--coral); color: #fff; }
+.fi-msg { background: var(--sun); color: var(--indigo); }
+.fi-pin { background: #4FA3F7; color: #fff; }
+.fi-faq { background: var(--blush); color: #B23A2E; }
+.socials { margin-top: 20px; }
+.socials > span { display: block; margin-bottom: 10px; font: 600 .95rem var(--head); color: #fff; }
+.socials > div { display: flex; gap: 10px; }
+.soc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; box-shadow: 0 10px 20px -12px rgba(0, 0, 0, .6); transition: transform .2s var(--ease); }
+.soc:hover { transform: translateY(-3px) scale(1.05); }
+.soc-whatsapp { background: #25D366; }
+.soc-facebook { background: #1877F2; }
+.soc-instagram { background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%); }

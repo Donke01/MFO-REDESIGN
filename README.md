@@ -59,6 +59,10 @@ After any push that changes `content/`, `tools/`, `css/`, `js/` or a mission pho
 
 The three cards under "What your gifts did this year" are written by hand in `tools/build.py` (search for `gift-grid`): update them once or twice a year.
 
+## Social icons in the footer
+
+In `content/site.json`, fill in `social.whatsapp` (a number with country code, e.g. `"16026165557"`), `social.facebook` and `social.instagram` (full links). Each coloured icon appears in the footer of every page after the next build; leave a value `null` to hide that icon.
+
 ## Widow-homes progress bar
 
 In `content/site.json`, set `widow_homes.goal_usd` and `widow_homes.raised_usd` (for example `9000` and `4200`). The bar appears on `widow-homes.html` after the next build. Set them back to `null` to hide it.
