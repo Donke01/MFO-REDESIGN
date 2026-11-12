@@ -83,11 +83,13 @@ SOC = {
   'facebook': ('Facebook', '<svg viewBox="0 0 24 24" width="22" height="22"><path fill="#fff" d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.6V4.4a22 22 0 0 0-2.4-.1c-2.4 0-4 1.4-4 4.1v2.4H7.6V14h2.7v8z"/></svg>'),
   'instagram': ('Instagram', '<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="#fff"/></svg>'),
 }
-def social_row():
+def social_row(up=''):
   links = []
   for k, (name, svg) in SOC.items():
     v = (SITECONF.get('social') or {}).get(k)
     if not v: continue
+    if v == 'placeholder':  # icon shown, real link not given yet: goes to the contact page for now
+      links.append(f'<a class="soc soc-{k}" href="{up}contact.html" aria-label="{name}: number coming soon, contact us for now" title="{name} number coming soon">{svg}</a>'); continue
     if k == 'whatsapp' and not str(v).startswith('http'): v = 'https://wa.me/' + re.sub(r'\D', '', str(v))
     links.append(f'<a class="soc soc-{k}" href="{E(v)}" target="_blank" rel="noopener" aria-label="Missions for Orphans on {name}">{svg}</a>')
   return f'<div class="socials"><span>Follow us</span><div>{"".join(links)}</div></div>' if links else ''
@@ -146,7 +148,7 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
           <li><a href="{up}contact.html"><span class="fi fi-msg" aria-hidden="true">{ICON_MSG}</span>Send us a message</a></li>
           <li><span class="fi fi-pin" aria-hidden="true">{ICON_PIN}</span><span>2497 N. Delaney Dr.<br>Buckeye, AZ 85396</span></li>
         </ul>
-        {social_row()}
+        {social_row(up)}
       </div>
     </div>
     <nav class="f-links" aria-label="More pages">

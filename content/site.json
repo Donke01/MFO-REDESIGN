@@ -7,9 +7,9 @@
     "_note": "Set both numbers (for example 9000 and 4200) to show a progress bar on widow-homes.html. Leave them null to hide it."
   },
   "social": {
-    "whatsapp": null,
+    "whatsapp": "placeholder",
     "facebook": "https://www.facebook.com/share/1A98c34wrx/",
     "instagram": "https://www.instagram.com/mfokenya/",
-    "_note": "Fill in to show the coloured icons in the footer: whatsapp as a number with country code (e.g. \"16026165557\") or a wa.me link; facebook and instagram as full links (https://www.facebook.com/..., https://www.instagram.com/...). Leave null to hide an icon."
+    "_note": "whatsapp: a number with country code (e.g. \"2547XXXXXXXX\") or a wa.me link; \"placeholder\" shows the icon and links to the contact page until the number is known. facebook and instagram: full links. null hides an icon."
   }
 }
