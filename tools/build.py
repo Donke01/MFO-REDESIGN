@@ -239,6 +239,8 @@ home = f'''<section class="hero" aria-labelledby="hh">
   </div>
 </section>
 
+<section class="places" aria-label="Where we serve"><p>Where we serve</p><div class="pl-wrap"><div class="pl-track"><ul><li>Kipsaina</li><li>Kitale</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li>Pokot</li><li>Trans Nzoia</li></ul><ul aria-hidden="true"><li>Kipsaina</li><li>Kitale</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li>Pokot</li><li>Trans Nzoia</li></ul></div></div></section>
+
 <section class="wrap gifts" id="gifts" aria-labelledby="gh1">
   <div class="gifts-head"><h2 id="gh1">What your gifts did this year</h2><a class="link" href="missions.html">See every mission, with photos</a></div>
   <div class="gift-grid">

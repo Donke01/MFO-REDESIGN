@@ -25,6 +25,20 @@
     setTimeout(function () { location.href = u.href; }, 170);
   });
 
+  // ---------------------------------------------------------------- page headlines sharpen in from a blur, word by word
+  document.querySelectorAll('.hero h1, .phero h1').forEach(function (h) {
+    if (h.children.length) return;
+    var text = h.textContent.trim(); h.setAttribute('aria-label', text);
+    h.innerHTML = text.split(/\s+/).map(function (w, i) { return '<span class="w" aria-hidden="true" style="--i:' + i + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span>'; }).join(' ');
+  });
+  // the hero photos start tilted back and straighten as you scroll
+  var tilts = Array.prototype.slice.call(document.querySelectorAll('.arches, .ph-art')), tTick = false;
+  function tilt() {
+    tTick = false; var p = Math.min(1, Math.max(0, scrollY / 380)), max = innerWidth < 760 ? 10 : 18;
+    tilts.forEach(function (el) { el.style.setProperty('--tilt', ((1 - p) * (el.classList.contains('ph-art') ? max * .7 : max)).toFixed(2) + 'deg'); el.style.setProperty('--sc', (.94 + .06 * p).toFixed(3)); });
+  }
+  if (tilts.length) { addEventListener('scroll', function () { if (!tTick) { tTick = true; requestAnimationFrame(tilt); } }, { passive: true }); addEventListener('resize', tilt); tilt(); }
+
   // ---------------------------------------------------------------- the header (menu bar)
   var top = document.querySelector('.top'), links = document.querySelector('.nav-links'), navEl = document.getElementById('site-nav');
   if (!html.classList.contains('mo-arrive')) html.classList.add('mo-first'); // first page of a visit: the bar drops in
@@ -66,7 +80,7 @@
   addEventListener('resize', prog); prog();
 
   // cards rise in, a little after each other
-  var CARDS = '.fund,.gift,.news,.xcard,.costs > div,.grads figure,.trades figure,.faq details,.home-cta,.grow-row figure,.steps li,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
+  var CARDS = 'main h2,.fund,.gift,.news,.xcard,.costs > div,.grads figure,.trades figure,.faq details,.home-cta,.grow-row figure,.steps li,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
   var queue = [], busy = false;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); queue.push(e.target); } });
