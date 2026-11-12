@@ -27,7 +27,8 @@
   function show(posts) {
     boxes.forEach(function (box) {
       var cards = Array.prototype.slice.call(box.querySelectorAll('.post-card'));
-      posts.forEach(function (p) { cards.push(card(p)); });
+      var have = {}; cards.forEach(function (c) { var u = c.getAttribute('data-src'); if (u) have[u.replace(/\/$/, '')] = 1; });
+      posts.forEach(function (p) { if (!have[p.url.replace(/\/$/, '')]) cards.push(card(p)); }); // posts already copied into this site are skipped
       cards.sort(function (x, y) { return y.getAttribute('data-date') < x.getAttribute('data-date') ? -1 : 1; });
       var n = box.getAttribute('data-feed') === 'all' ? cards.length : parseInt(box.getAttribute('data-feed'), 10) || 3;
       box.textContent = '';

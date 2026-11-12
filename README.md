@@ -13,7 +13,10 @@ A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fas
 | `donate.html` | The five funds, tax records, monthly giving, a widow's home, other ways to give |
 | `widow-homes.html` | Fund a widow's home: how the homes have grown, Mary Esekhon's home, Monica's home |
 | `contact.html` | Phone, address, contact form |
-| `blog.html`, `blog/*.html` | Lani's blog: the three posts from the current site, plus her newest posts from mfolanisblog.wordpress.com (loaded live by `js/blogfeed.js`) |
+| `land.html` | Our land and farm: the boys' home, church, farm, tea and the brick wall |
+| `schools.html` | Schools and training: school costs, village children, preschools in Pokot, graduates, tailoring school, trades |
+| `faq.html` | Questions about giving and about the work |
+| `blog.html`, `blog/*.html` | Lani's blog: three posts from the old site and her three 2025 posts from mfolanisblog.wordpress.com, copied in; any newer WordPress posts appear automatically (`js/blogfeed.js`) |
 
 Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form, copy link). Photos are in `assets/img/` as WebP.
 
@@ -68,6 +71,8 @@ Direction 1 from the Figma file "Missions for Orphans · Card redesign" (https:/
 - **Type**: Outfit for headings and buttons, Figtree for reading, Caveat for Mama Lani's signature (Google Fonts).
 - **Homepage** in six parts: hero (photo in an arch with a sun behind it and a "190 widows fed" note), what your gifts did (indigo, coral and sunflower number cards), what we do (three programs on sky), our family (Lani's quote and the family's faces), choose where your gift goes (five colour tiles), footer.
 - **Cards**: number cards and giving tiles in solid colours with round photos; white program, mission, team, blog and ways-to-give cards with large rounded corners and colour tags. On phones the number cards and program cards swipe sideways.
+- **Text size**: `html { font-size: 115% }` in `css/styles.css` sets the size of all text; every other size is in rem.
+- **Header motion**: the bar drops in on the first page of a visit, a white pill glides under the links, the bar slims as you scroll, hides when scrolling down and returns when scrolling up; on phones the menu rows slide in one after another.
 - **Motion** (`js/motion.js`): a scroll line in indigo, coral and sunflower, the hero rising in with the sun, cards rising in as you scroll, numbers counting up, photos shimmering until they load, and a quick fade between pages. Nothing moves with reduced motion turned on.
 - Add each new mission on `missions.html`, and update the three number cards on the home page.
 

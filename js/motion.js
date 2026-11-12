@@ -25,6 +25,38 @@
     setTimeout(function () { location.href = u.href; }, 170);
   });
 
+  // ---------------------------------------------------------------- the header (menu bar)
+  var top = document.querySelector('.top'), links = document.querySelector('.nav-links'), navEl = document.getElementById('site-nav');
+  if (!html.classList.contains('mo-arrive')) html.classList.add('mo-first'); // first page of a visit: the bar drops in
+  if (top) {
+    // tighten on scroll; slide away when scrolling down, come back when scrolling up
+    var lastY = scrollY, hTick = false;
+    function onScroll() {
+      hTick = false; var y = scrollY;
+      top.classList.toggle('scrolled', y > 40);
+      var busy = (navEl && navEl.classList.contains('open')) || top.contains(document.activeElement);
+      if (!busy && y > 240 && y > lastY + 6) top.classList.add('hide');
+      else if (y < lastY - 6 || y <= 240) top.classList.remove('hide');
+      lastY = y;
+    }
+    addEventListener('scroll', function () { if (!hTick) { hTick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    top.addEventListener('focusin', function () { top.classList.remove('hide'); });
+    onScroll();
+  }
+  // a white pill glides under the links on wide screens and settles back on the page you are on
+  if (links && matchMedia('(min-width: 1081px)').matches) {
+    var glide = document.createElement('span'); glide.className = 'nav-glide'; glide.setAttribute('aria-hidden', 'true'); links.insertBefore(glide, links.firstChild);
+    var cur = links.querySelector('a[aria-current="page"]');
+    function moveTo(a) { if (!a) { glide.style.opacity = '0'; return; } glide.style.opacity = '1'; glide.style.width = a.offsetWidth + 'px'; glide.style.transform = 'translateX(' + a.offsetLeft + 'px)'; }
+    html.classList.add('glide'); moveTo(cur);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { glide.classList.add('on'); }); });
+    links.querySelectorAll('a').forEach(function (a) { a.addEventListener('mouseenter', function () { moveTo(a); }); a.addEventListener('focus', function () { moveTo(a); }); });
+    links.addEventListener('mouseleave', function () { moveTo(cur); });
+    links.addEventListener('focusout', function (e) { if (!links.contains(e.relatedTarget)) moveTo(cur); });
+    addEventListener('resize', function () { moveTo(cur); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { moveTo(cur); });
+  }
+
   // scroll line
   var bar = document.createElement('div'); bar.className = 'mo-line'; bar.setAttribute('aria-hidden', 'true'); bar.innerHTML = '<i></i>';
   document.body.appendChild(bar);
@@ -34,7 +66,7 @@
   addEventListener('resize', prog); prog();
 
   // cards rise in, a little after each other
-  var CARDS = '.fund,.gift,.news,.home-cta,.grow-row figure,.steps li,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
+  var CARDS = '.fund,.gift,.news,.xcard,.costs > div,.grads figure,.trades figure,.faq details,.home-cta,.grow-row figure,.steps li,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
   var queue = [], busy = false;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); queue.push(e.target); } });

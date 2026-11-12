@@ -45,6 +45,12 @@ def og(name, src):
     im.convert('RGB').save(out, 'JPEG', quality=84, optimize=True); print('preview', name + '.jpg')
   return 'assets/img/og/' + name + '.jpg'
 
+def phero(h1, intro, img=None, alt='', ring='coral', actions='', up='', meta='', w=933, h=700):
+  """The card at the top of every inner page: headline on the left, a photo in an arch on the right."""
+  art = (f'<figure class="ph-art {ring}"><img src="{up}assets/img/{img}" alt="{E(alt)}" width="{w}" height="{h}"></figure>') if img else ''
+  return (f'<section class="phero{"" if img else " no-art"}"><div class="ph-copy">{meta}<h1>{h1}</h1>'
+          + (f'<p>{intro}</p>' if intro else '') + (f'<div class="acts">{actions}</div>' if actions else '') + f'</div>{art}</section>')
+
 def bold_num(h):  # "190 widows fed" -> "<b>190</b> widows fed"
   m = re.match(r'^(\$?[\d,.]+\+?)\s+(.*)$', h)
   return f'<b>{html.escape(m.group(1))}</b> {html.escape(m.group(2))}' if m else html.escape(h)
@@ -111,7 +117,8 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
     <div class="logo"><img src="{up}assets/img/heart.png" alt="Missions for Orphans" width="75" height="64">Kipsaina, near Kitale, Kenya</div>
     <div><b>Write or call</b>2497 N. Delaney Dr.<br>Buckeye, AZ 85396<br><a href="tel:+16026165557">602-616-5557</a></div>
     <div><b>Pages</b><ul>{''.join('<li><a href="%s%s">%s</a></li>' % (up, h, t) for h, t in NAV)}</ul></div>
-    <div><b>Give</b><ul><li><a href="{up}donate.html">Donate</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li></ul></div>
+    <div><b>More</b><ul><li><a href="{up}land.html">Our land and farm</a></li><li><a href="{up}schools.html">Schools and training</a></li><li><a href="{up}widow-homes.html">Fund a widow's home</a></li><li><a href="{up}faq.html">Questions</a></li></ul></div>
+    <div><b>Give</b><ul><li><a href="{up}donate.html">Donate</a></li><li><a href="{up}donate.html#monthly">Give every month</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li></ul></div>
   </div>
   <p class="legal">Missions for Orphans is a 501(c)(3) non-profit. Donations are tax deductible. © <span data-year>2026</span> Missions for Orphans.</p>
 </div></footer>
@@ -144,15 +151,20 @@ LEDGER = [
 ]
 
 # ---------------------------------------------------------------- home
-BLOGDATE = {'summer-2023': 'Summer 2023', 'march-14-2022': '14 March 2022', 'september-21-2021': '21 September 2021'}
-BLOGISO = {'summer-2023': '2023-07-01', 'march-14-2022': '2022-03-14', 'september-21-2021': '2021-09-21'}
+BLOGDATE = {'march-28-2025': '28 March 2025', 'february-22-2025': '22 February 2025', 'welcome': '3 February 2025', 'summer-2023': 'Summer 2023', 'march-14-2022': '14 March 2022', 'september-21-2021': '21 September 2021'}
+BLOGISO = {'march-28-2025': '2025-03-28', 'february-22-2025': '2025-02-22', 'welcome': '2025-02-03', 'summer-2023': '2023-07-01', 'march-14-2022': '2022-03-14', 'september-21-2021': '2021-09-21'}
+# newest first. The first three are from mfolanisblog.wordpress.com (WPURL), copied into this site
+WPURL = {'march-28-2025': 'https://mfolanisblog.wordpress.com/2025/04/01/march-28-2025/', 'february-22-2025': 'https://mfolanisblog.wordpress.com/2025/02/22/february-22-2025/', 'welcome': 'https://mfolanisblog.wordpress.com/2025/02/03/welcome/'}
 BLOG = [
+  ('march-28-2025', 'March 28, 2025', 'wp/march-28-2025-img_2790-1', 'wp-march-28-2025', 'How a dozen widows praying under an avocado tree became a church, and the six widows’ groups we feed today.'),
+  ('february-22-2025', 'February 22, 2025', 'wp/february-22-2025-img_2326-1', 'wp-february-22-2025', 'Seven acres, 8,000 tea plants, and seven young men from our home now in college or graduated.'),
+  ('welcome', 'Welcome!!', 'wp/welcome-boys-blog-7', 'wp-welcome', 'Welcome to Kenya: the boys of the Kipsaina Boys Home, and how Mama Lani shares her updates.'),
   ('summer-2023', 'Summer of 2023', 'summer-2023_lanis-blog-2-1', 'p-summer-of-2023.html', 'School fees, a brick wall around seven acres, 600 widows fed, five new homes and the sixth tailoring graduation.'),
   ('march-14-2022', 'March 14, 2022', 'march-14-2022_lanis-blog-2-1', 'p-march-14-2022.html', 'Back in Kitale early: a new home, widows every other week, and the children who need surgery.'),
   ('september-21-2021', 'September 21, 2021', 'september-21-2021_lanis-blog-2', 'p-september-212021.html', 'Leaving Nairobi after a full year: trades for the older boys, prison visits and a tailoring graduation.'),
 ]
 POSTCARDS = ''.join(
-  f'<a class="post-card" data-date="{BLOGISO[s]}" href="{up}blog/{s}.html"><img src="{up}assets/img/blog/{c}.webp" alt="" loading="lazy" width="1400" height="698"><span class="pc-date">{E(BLOGDATE[s])}</span><h3>{E(t)}</h3><p>{E(x)}</p><span class="byline-s"><img src="{up}assets/img/lani.webp" alt="" loading="lazy" width="32" height="32">Mama Lani</span></a>' for up in [''] for s, t, c, k, x in BLOG)
+  f'<a class="post-card" data-date="{BLOGISO[s]}"{(' data-src="' + WPURL[s] + '"') if s in WPURL else ''} href="{up}blog/{s}.html"><img src="{up}assets/img/blog/{c}.webp" alt="" loading="lazy" width="1400" height="698"><span class="pc-date">{E(BLOGDATE[s])}</span><h3>{E(t)}</h3><p>{E(x)}</p><span class="byline-s"><img src="{up}assets/img/lani.webp" alt="" loading="lazy" width="32" height="32">Mama Lani</span></a>' for up in [''] for s, t, c, k, x in BLOG)
 
 def latest():
   m = MISSIONS[0]; ph = m['photos'][:3]
@@ -230,7 +242,7 @@ og('home', 'assets/img/kids.webp')
 page('index.html', 'Missions for Orphans: help orphans and widows in Kenya', 'Donate to orphans and widows in Kipsaina, Kenya. A family-run 501(c)(3): every gift goes to the programs.', home, extra=f'<script src="js/blogfeed.js?v={ver("js/blogfeed.js")}" defer></script>')
 
 # ---------------------------------------------------------------- who we are
-who = f'''<section class="wrap page-head"><h1>Who we are</h1><p>A family-owned and family-run non-profit. Our directors live in Kenya and know every boy, widow and village we serve.</p></section>
+who = phero('Who we are', 'A family-owned and family-run non-profit. Our directors live in Kenya and know every boy, widow and village we serve.', 'hug.webp', 'A young man from our home holding a little girl from the village', 'indigo', w=1200, h=1600) + f'''
 <section class="band indigo story who" aria-labelledby="sh">
   <div class="wrap">
     <div>
@@ -258,7 +270,7 @@ PROG = [
   ('boys', 'The boys', 'Children gathered on the grass at Kipsaina', ['In Kipsaina we care for 15 orphan boys, meeting their basic needs and giving them the life skills and faith to overcome poverty. With dedicated house parents, every boy has clothing, food, shelter and the love of a family.', 'We aim for more than survival: education and guidance that prepare them for a future full of opportunity.'], ('15', 'orphan boys, with 2 house parents')),
   ('widows2', 'The widows', 'Widows gathered for a food distribution', ['We bring food and medical outreach to over eight tribes in the surrounding villages. Widows face food shortages, poor shelter and a lack of hygiene supplies.', 'We build small homes with tin roofs, hand out food every six weeks, and give essential supplies to those most in need.'], ('6', 'weeks between food deliveries')),
   ('village', 'Village members', 'Village children sitting together on the grass', ['We employ 44 people in Kipsaina and other Kenyan counties: teachers, laborers, pastors, guards and trade school students. Three preschools in Pokot villages offer education, food and jobs.', 'Seamstress graduates receive their own sewing machines, skilled laborers learn trades, and our 6-acre farm supports several families.'], ('44', 'jobs in Kenya')),
-  ('projects', 'Our projects', 'A finished brick home with a blue door', ['We are building a perimeter wall to keep the children and farm workers safe. We built a home for Monica, a mother of nine abandoned by her husband, furnished it with beds and blankets, and bring her food each month.', 'Each year we aim to build six homes for widows in the greatest need.'], ('6', 'homes for widows: our goal each year')),
+  ('house2', 'Our projects', 'A finished two-room home for a widow', ['We are building a perimeter wall to keep the children and farm workers safe. We built a home for Monica, a mother of nine abandoned by her husband, furnished it with beds and blankets, and bring her food each month.', 'Each year we aim to build six homes for widows in the greatest need.'], ('6', 'homes for widows: our goal each year')),
   ('medical', 'Education and medical care', 'A medical outreach day in the village', ['Many families cannot afford school, so we provide uniforms, backpacks, shoes and fees. Now far fewer children are left out of class.', 'Clothing is always needed, for our boys and the village children. Our medical missions treat jiggers, stomach viruses, malaria and typhoid.'], (None, 'Uniforms, fees and clinics')),
   ('outreach', 'Outreach', 'A team member walking with children down a red dirt road', ["We follow the Great Commission of Matthew 28:19-20. We've built over six churches and support many more, with internet teachings every other week, men's and women's conferences, Bibles and music equipment.", 'We visit the local prisons regularly with ministry, food and sanitary supplies.'], ('6+', 'churches built')),
 ]
@@ -272,8 +284,8 @@ def tallies(pid):  # add up the numbers from mission reports for one program, e.
   when = ['January','February','March','April','May','June','July','August','September','October','November','December'][mo - 1] + ' ' + y
   items = ''.join(f'<li><b>{n:,}</b> {E(l)}</li>' for l, n in tot.items())
   return f'<div class="tally"><span>From our mission reports since {when}</span><ul>{items}</ul><a class="link" href="missions.html">See the reports</a></div>'
-what = '<section class="wrap page-head"><h1>What we do</h1><p>We work to lessen the effects of poverty on children, orphans and families in Trans Nzoia County, Kenya: hunger, poor housing, missing school and missing medical care.</p></section>\n<section class="wrap" style="padding-bottom:40px">' + ''.join(
-  f'<article class="program" id="{slug(t)}"><img src="assets/img/{k}.webp" alt="{a}" loading="lazy" width="933" height="700"><div><h2>{t}</h2>{"".join("<p>%s</p>" % E(x) for x in ps)}<p class="fact">{"<b>%s</b>" % f[0] if f[0] else ""}<span>{E(f[1])}</span></p>{tallies(slug(t))}{"<a class=link href=widow-homes.html>Fund a widow&#39;s home</a>" if k == "projects" else ""}</div></article>' for k, t, a, ps, f in PROG) + f'</section>\n<section class="give" aria-labelledby="gh"><div class="wrap"><h2 id="gh">Choose where your gift goes</h2>{funds()}</div></section>'
+what = phero('What we do', 'We work to lessen the effects of poverty on children, orphans and families in Trans Nzoia County, Kenya: hunger, poor housing, missing school and missing medical care.', 'crowd.webp', 'Children and women dancing in a line at a village gathering', 'sun', w=1600, h=1200) + '\n<section class="wrap" style="padding-bottom:40px">' + ''.join(
+  f'<article class="program" id="{slug(t)}"><img src="assets/img/{k}.webp" alt="{a}" loading="lazy" width="933" height="700"><div><h2>{t}</h2>{"".join("<p>%s</p>" % E(x) for x in ps)}<p class="fact">{"<b>%s</b>" % f[0] if f[0] else ""}<span>{E(f[1])}</span></p>{tallies(slug(t))}{ {"house2": "<a class=link href=widow-homes.html>Fund a widow&#39;s home</a>", "village": "<p class=links><a class=link href=land.html>Our land and farm</a><a class=link href=schools.html>Schools and training</a></p>", "medical": "<a class=link href=schools.html>Schools and training</a>"}.get(k, "") }</div></article>' for k, t, a, ps, f in PROG) + f'</section>\n<section class="give" aria-labelledby="gh"><div class="wrap"><h2 id="gh">Choose where your gift goes</h2>{funds()}</div></section>'
 og('what', 'assets/img/boys.webp')
 page('what-we-do.html', 'What we do: Missions for Orphans', 'Orphan care, widow support, village jobs, medical missions and outreach in Kipsaina, Kenya.', what, cur='what-we-do.html', img='assets/img/og/what.jpg')
 
@@ -290,13 +302,13 @@ def share(m):
     f'<a class="sh wa" href="https://wa.me/?text={quote(txt + " " + u)}" target="_blank" rel="noopener">{WA}WhatsApp</a>'
     f'<a class="sh fb" href="https://www.facebook.com/sharer/sharer.php?u={quote(u, safe="")}" target="_blank" rel="noopener">{FB}Facebook</a>'
     f'<button class="sh cp" type="button" data-copy="{u}">{LN}<span>Copy link</span></button></div>')
-mis = '<section class="wrap page-head"><h1>Latest missions</h1><p>What your donations did, mission by mission, newest first. Tap a photo to see it full size.</p></section>\n<section class="wrap" style="padding-bottom:72px">' + ''.join(
+mis = phero('Latest missions', 'What your donations did, mission by mission, newest first. Tap a photo to see it full size.', 'community.webp', 'Our team in Missions for Orphans shirts at a village gathering', 'coral', w=933, h=525) + '\n<section class="wrap" style="padding-bottom:72px">' + ''.join(
   f'<article class="mcard" id="{m["id"]}"><button type="button" class="mc-ph" data-full="assets/img/missions/{m["photos"][0]}.webp"><img src="assets/img/missions/{m["photos"][0]}.webp" alt="{E(m["alt"])}" loading="lazy" width="1200" height="900"></button><div class="mc-in"><time class="chip" datetime="{m["date"]}">{E(m["when"])}</time><h3 class="stat">{bold_num(m["headline"])}</h3>{"".join("<p>%s</p>" % E(x) for x in m["story"])}<div class="gallery thumbs">{thumbs(m["photos"], m["alt"])}</div>{share(m)}</div></article>' for m in MISSIONS) + f'</section>\n<section class="give" aria-labelledby="gh"><div class="wrap"><h2 id="gh">Fund the next mission</h2>{funds()}</div></section>'
 og('missions', 'assets/img/missions/' + MISSIONS[0]['photos'][0] + '.webp')
 page('missions.html', 'Latest missions: Missions for Orphans', 'Dated reports from Kipsaina, Kenya: food for widows, wheelchairs, new homes and more.', mis, cur='missions.html', img='assets/img/og/missions.jpg')
 
 # ---------------------------------------------------------------- donate
-don = f'''<section class="wrap page-head"><h1>Your gift can change a life</h1><p>Every gift becomes something real: care for an orphaned child, hope for a widow, strength for a community. Choose where your heart leads you.</p></section>
+don = phero('Your gift can change a life', 'Every gift becomes something real: care for an orphaned child, hope for a widow, strength for a community. Choose where your heart leads you.', 'medical.webp', 'A mother and her children being cared for during a village outreach', 'coral', '<a class="btn ghost" href="#monthly">Give every month</a><a class="btn ghost" href="faq.html">Questions</a>') + f'''
 <section class="give" style="padding-top:40px" aria-label="Giving funds"><div class="wrap">
   {funds()}
   <p class="note">Missions for Orphans is a 501(c)(3) non-profit, and all donations are tax deductible. We run only on donations, with no admin costs: every gift goes to the programs.</p>
@@ -349,12 +361,12 @@ if goal and raised is not None:
   pct = max(0, min(100, round(100 * raised / goal)))
   bar = f'''<div class="progress" role="group" aria-label="Raised for widows' homes"><div class="pr-top"><b>${raised:,}</b><span>raised of ${goal:,}</span></div><div class="pr-bar"><i style="width:{pct}%"></i></div><span class="pr-note">{pct}% of this year's goal</span></div>'''
 def gal_strip(fs, alt): return '<div class="gallery wh-gal">' + ''.join(f'<button type="button" data-full="assets/img/missions/{f}.webp"><img src="assets/img/missions/{f}.webp" alt="{E(alt)}" loading="lazy" width="1200" height="900"></button>' for f in fs) + '</div>'
-homes = f'''<section class="wrap page-head"><h1>Fund a widow's home</h1><p>Each year we aim to build six homes for widows in the greatest need.</p>{bar}<p style="margin-top:26px"><a class="btn" href="{GIVE}widows-support/">''' + '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>' + f'''Give to widows' homes</a></p></section>
+homes = phero("Fund a widow's home", 'Each year we aim to build six homes for widows in the greatest need. In 2023 we built five, at a cost of $900 each.', 'wsupport.webp', 'A widow receiving supplies from our team', 'coral', f'<a class="btn" href="{GIVE}widows-support/">' + '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>' + "Give to widows' homes</a>", w=933, h=525) + (f'<div class="wrap">{bar}</div>' if bar else '') + f'''
 <section class="wrap grow" aria-labelledby="gr">
   <h2 id="gr">How the homes have grown</h2>
   <div class="grow-row">
     <figure><img src="assets/img/house.webp" alt="A widow sitting beside the timber frame of her new home" loading="lazy" width="1200" height="900"><figcaption><b>The frame</b>Timber poles and a tin roof go up first.</figcaption></figure>
-    <figure><img src="assets/img/house2.webp" alt="A finished two-room home for a widow" loading="lazy" width="1200" height="900"><figcaption><b>The finished home</b>Today's homes are 15 by 20 feet with two rooms. The first ones were 8 by 8 foot shelters.</figcaption></figure>
+    <figure><img src="assets/img/house2.webp" alt="A finished two-room home for a widow" loading="lazy" width="1200" height="900"><figcaption><b>The finished home</b>Today's homes are 15 by 20 feet with two rooms. The first ones were 8 by 8 foot shelters. The old house next door becomes the cooking room.</figcaption></figure>
   </div>
 </section>'''
 if mary:
@@ -364,10 +376,10 @@ if mary:
   {gal_strip(mary['photos'], mary['alt'])}
 </div></section>'''
 homes += f'''
-<section class="wrap wh-monica" aria-labelledby="mon"><div>
+<section class="wrap wh-monica" aria-labelledby="mon"><div class="wh-note">
   <h2 id="mon">Monica's home</h2>
   <p>We built a home for Monica, a mother of nine abandoned by her husband, furnished it with beds and blankets, and bring her food each month.</p>
-</div><img src="assets/img/projects.webp" alt="A finished brick home with a blue door" loading="lazy" width="933" height="700"></section>'''
+</div></section>'''
 if look:
   homes += f'''
 <section class="wrap wh-look" aria-labelledby="lk"><h2 id="lk">{E(look['title'])}</h2>{"".join("<p>%s</p>" % E(x) for x in look['story'])}{gal_strip([f for f in look['photos'] if f != 'kenya-widow-support_aug-4'][:3], look['alt'])}</section>'''
@@ -377,7 +389,7 @@ og('widow-homes', 'assets/img/house2.webp')
 page('widow-homes.html', "Fund a widow's home: Missions for Orphans", "Each year we aim to build six two-room homes for widows in Kipsaina, Kenya. See Mary Esekhon's home going up.", homes, img='assets/img/og/widow-homes.jpg')
 
 # ---------------------------------------------------------------- contact
-con = '''<section class="wrap page-head"><h1>Contact us</h1><p>Questions about our work, or just want to talk? We'd love to hear from you.</p></section>
+con = phero('Contact us', "Questions about our work, or just want to talk? We'd love to hear from you. Many answers are already on our <a href=\"faq.html\">questions page</a>.", 'edward.webp', 'Edward and Isabel, house parents at our home in Kipsaina', 'indigo') + '''
 <section class="wrap contact">
   <div>
     <div class="block"><h2>Call</h2><p><a href="tel:+16026165557">602-616-5557</a></p></div>
@@ -399,12 +411,106 @@ con = '''<section class="wrap page-head"><h1>Contact us</h1><p>Questions about o
 page('contact.html', 'Contact: Missions for Orphans', 'Call 602-616-5557 or write to Missions for Orphans, Buckeye, Arizona.', con, cur='contact.html')
 
 # ---------------------------------------------------------------- blog
-blog = '<section class="wrap page-head"><h1>Lani\'s blog</h1><p>Notes from Kenya by Lani Orosco, co-founder, known in Kipsaina as Mama Lani. <a href="https://mfolanisblog.wordpress.com">More posts on her own blog</a>.</p></section>\n<section class="wrap posts" data-feed="all">' + ''.join(
-  f'<a class="post-card" data-date="{BLOGISO[s]}" href="blog/{s}.html"><img src="assets/img/blog/{c}.webp" alt="" loading="lazy" width="1400" height="698"><span class="pc-date">{E(BLOGDATE[s])}</span><h3>{E(t)}</h3><p>{E(x)}</p><span class="byline-s"><img src="assets/img/lani.webp" alt="" loading="lazy" width="32" height="32">Mama Lani</span></a>' for s, t, c, k, x in BLOG) + '</section>'
+blog = phero("Lani's blog", 'Notes from Kenya by Lani Orosco, co-founder, known in Kipsaina as Mama Lani. <a href="https://mfolanisblog.wordpress.com">Follow her own blog</a> to get new posts by email.', 'lani.webp', 'Lani Orosco, known as Mama Lani', 'sun') + '\n<section class="wrap posts" data-feed="all">' + ''.join(
+  f'<a class="post-card" data-date="{BLOGISO[s]}"{(' data-src="' + WPURL[s] + '"') if s in WPURL else ''} href="blog/{s}.html"><img src="assets/img/blog/{c}.webp" alt="" loading="lazy" width="1400" height="698"><span class="pc-date">{E(BLOGDATE[s])}</span><h3>{E(t)}</h3><p>{E(x)}</p><span class="byline-s"><img src="assets/img/lani.webp" alt="" loading="lazy" width="32" height="32">Mama Lani</span></a>' for s, t, c, k, x in BLOG) + '</section>'
 og('blog', 'assets/img/blog/summer-2023_lanis-blog-2-1.webp')
 page('blog.html', "Lani's blog: Missions for Orphans", 'Notes from Kenya by Missions for Orphans co-founder Lani Orosco.', blog, cur='blog.html', img='assets/img/og/blog.jpg', extra=f'<script src="js/blogfeed.js?v={ver("js/blogfeed.js")}" defer></script>')
 
+
+# ---------------------------------------------------------------- our land and farm (from Lani's blog and the old What we do page)
+HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>'
+land = phero('Our land and farm', 'Seven acres near Kitale: the boys’ home, a church, a farm, and over 8,000 tea plants.', 'onsite.webp', 'Buildings on our property in Kipsaina', 'sun', f'<a class="btn" href="{GIVE}onsite-projects/">{HEART}Give to onsite projects</a>', w=933, h=525) + f'''
+<section class="wrap land-grid" aria-labelledby="on">
+  <h2 id="on">What's on the land</h2>
+  <div class="cards-x">
+    <div class="xcard has-ph"><img src="assets/img/projects.webp" alt="The brick dormitory for the older boys" loading="lazy" width="933" height="700"><h3>The boys' home</h3><p>A home for the younger boys, a dormitory for the older ones, and house parents Edward and Isabel.</p></div>
+    <div class="xcard"><h3>The church</h3><p>It began as a tent on the land, for the boys, the widows and anyone in the village. As it grew, Coney built a permanent church.</p></div>
+    <div class="xcard"><h3>The farm</h3><p>Vegetables and grains for the boys, and for widows who stop by in need. Our farm also gives work to several families.</p></div>
+    <div class="xcard"><h3>Rooms for guests</h3><p>Sleeping quarters for visiting pastors, and plenty of storage buildings.</p></div>
+  </div>
+</section>
+<section class="band sky" aria-labelledby="tea"><div class="wrap split">
+  <div><h2 id="tea">The tea business</h2><p>We have over 8,000 tea plants on part of the land, and we belong to a tea co-op. The aim is for the tea to pay the salaries of the people who work the tea fields.</p><p class="pull">“Kenyan tea is the best.”<span>Mama Lani</span></p></div>
+  <div class="big-stat"><b>8,000+</b><span>tea plants on part of our seven acres</span></div>
+</div></section>
+<section class="wrap split wall" aria-labelledby="wl">
+  <div><h2 id="wl">A wall we built ourselves</h2><p>One of our largest projects was a brick fence around the whole seven acres, to keep the children and farm workers safe.</p><p>We make our own bricks. Several of the boys have learned to make them, build with them and help with concrete work.</p></div>
+  <div class="pair-ph"><img src="assets/img/blog/summer-pic-1-495x400.webp" alt="Part of the brick wall around our land" loading="lazy" width="495" height="400"><img src="assets/img/blog/summer-pic-2-495x400.webp" alt="Bricks we made, stacked and drying" loading="lazy" width="495" height="400"></div>
+</section>
+<section class="wrap cta-band"><div><h2>Help build on the land</h2><p>Gifts to onsite projects go to the farm, the safety wall and building on our property.</p></div><a class="btn" href="{GIVE}onsite-projects/">Give to onsite projects</a></section>'''
+og('land', 'assets/img/onsite.webp')
+page('land.html', 'Our land and farm: Missions for Orphans', 'Seven acres near Kitale, Kenya: the boys’ home, a church, a farm and over 8,000 tea plants.', land, img='assets/img/og/land.jpg')
+
+# ---------------------------------------------------------------- schools and training
+GRADS = next(v for kind, v in POSTS['wp-february-22-2025'] if kind == 'grads')
+GRADCARDS = ''.join(f'<figure><img src="assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b><span>{E(sc.split(', who will')[0])}</span></figcaption></figure>' for n, sc, f in GRADS)
+schools = phero('Schools and training', 'There is no free school here. We pay fees, buy uniforms and shoes, run preschools, and help young people learn a trade.', 'blog/img_4305.webp', 'Two village girls in their school uniforms', 'indigo', w=1050, h=1400) + f'''
+<section class="wrap" style="padding-top:72px" aria-labelledby="cost">
+  <h2 id="cost">What school costs in Kipsaina</h2>
+  <div class="costs">
+    <div><b>$3–$5</b><span>per child, per quarter, for primary school</span></div>
+    <div><b>$100</b><span>per student, per year, for high school</span></div>
+    <div><b>$500–$700</b><span>per year for college, which here means trade school</span></div>
+    <div><b>$250</b><span>for a year of tailoring school, sewing machine included</span></div>
+  </div>
+  <p class="muted src-note">From Mama Lani's blog, summer 2023.</p>
+</section>
+<section class="wrap split" style="padding-top:64px" aria-labelledby="vk">
+  <div><h2 id="vk">Village children in class</h2><p>Most village children are raised by their grandparents, and when there is no money, a child stays home to look after the animals. We help pay primary school fees for many of them, sometimes up to 20 children, and buy their uniforms and school shoes.</p><p>In 2021, for the first time, all the village children in the area were in school.</p></div>
+  <div class="xcard tint"><h3>Preschools in Pokot</h3><p>We start and run preschools in Pokot villages. Our three preschools offer education, food and jobs.</p></div>
+</section>
+<section class="band sky" style="margin-top:72px" aria-labelledby="gr">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="gr">Our graduates</h2><a class="link" href="blog/february-22-2025.html">Read Mama Lani's post</a></div>
+    <p class="sec-intro">Young men from our home who have gone on to college and trade school.</p>
+    <div class="grads">{GRADCARDS}</div>
+  </div>
+</section>
+<section class="wrap split" style="padding-top:72px" aria-labelledby="tl">
+  <div><h2 id="tl">The tailoring school</h2><p>Our tailor, Rose, teaches for a full year: sewing, and also counsel, a mother's care and sometimes a safe place to live.</p><p>Each student gets a pedal sewing machine, which needs no electricity, and keeps it when they graduate. Fabric, thread, scissors, needles, machine oil and pattern paper are all included. In 2023 we held our sixth graduation.</p></div>
+  <div class="pair-ph"><img src="assets/img/blog/summer-pic-8-495x400.webp" alt="Tailoring school graduates in dresses they made" loading="lazy" width="495" height="400"><img src="assets/img/blog/summer-pic-9-495x400.webp" alt="A tailoring student at her pedal sewing machine" loading="lazy" width="495" height="400"></div>
+</section>
+<section class="wrap" style="padding-top:72px" aria-labelledby="tr">
+  <h2 id="tr">Learning a trade</h2>
+  <div class="trades">
+    <figure><img src="assets/img/blog/img_7814.webp" alt="Joseph at the boys' home" loading="lazy" width="1050" height="1400"><figcaption><b>Joseph</b>Training as an electrician, he put in solar security lights at the boys' home and power to the church, and teaches other boys basic electrical work.</figcaption></figure>
+    <figure><img src="assets/img/blog/img_5159.webp" alt="Phylip on the motorbike he rides to work" loading="lazy" width="1400" height="1050"><figcaption><b>Phylip</b>Interning at a mechanic's shop in Kitale. A motorbike gets him there each day, and one day he will start his own business.</figcaption></figure>
+  </div>
+  <p class="muted src-note">From Mama Lani's blog, September 2021.</p>
+</section>
+<section class="wrap cta-band"><div><h2>Help a child stay in school</h2><p>Gifts to community outreach pay school fees, uniforms and medical missions in the villages.</p></div><a class="btn" href="{GIVE}community-outreach/">Give to community outreach</a></section>'''
+og('schools', 'assets/img/blog/img_4305.webp')
+page('schools.html', 'Schools and training: Missions for Orphans', 'School fees, uniforms, preschools in Pokot, a tailoring school and trades for young people in Kipsaina, Kenya.', schools, img='assets/img/og/schools.jpg')
+
+# ---------------------------------------------------------------- questions
+FAQ = [
+  ('Giving', [
+    ('Is my gift tax deductible?', 'Yes. Missions for Orphans is a 501(c)(3) non-profit, and all donations are tax deductible. The giving form asks for your billing address so we can mail your records for tax purposes at the end of the year.'),
+    ('How much of my gift goes to the work?', 'All of it. We run only on donations, with no admin costs: every gift goes to the programs. Our directors live in Kenya.'),
+    ('Can I choose where my gift goes?', "Yes. Choose orphan care, widows, community outreach, onsite projects, or where it's needed most on the <a href=\"donate.html\">donate page</a>."),
+    ('Can I give every month?', 'Yes. On any giving form, choose an amount and tick “Make this donation every month”. <a href="donate.html#monthly">See how</a>.'),
+    ('Can I give by check or by phone?', "Yes. Make a check payable to Missions for Orphans and mail it to 2497 N. Delaney Dr., Buckeye, AZ 85396, or call <a href=\"tel:+16026165557\">602-616-5557</a> and we'll help you give."),
+    ('Can I send clothes or supplies?', 'Clothing for all ages is always needed, for our boys and the village children. <a href="contact.html">Get in touch</a> to arrange it.'),
+    ('What does a gift buy?', "A few real costs from our reports: $160 buys a wheelchair, $165 filled 12 baskets of essentials, $100 pays a year of high school, and in 2023 each new widow's home cost $900."),
+  ]),
+  ('Our work', [
+    ('Where is Missions for Orphans?', 'Our home is in Kipsaina, near Kitale, in Trans Nzoia County, Kenya. Our U.S. office is in Buckeye, Arizona.'),
+    ('Who runs it?', 'Lani Orosco started Missions for Orphans in 2008 with her late husband, Coney, and now runs it with her son and daughter. In Kipsaina she is Mama Lani. <a href="who-we-are.html">Meet the family</a>.'),
+    ('How are the widows helped?', 'About 600 widows in six village groups. We visit two groups at a time, every other week, with maize flour and beans, and a kilo of sugar at Christmas. We also build <a href="widow-homes.html">new homes</a>.'),
+    ('How do I know what my gift did?', 'Every mission is reported with dates and photos on the <a href="missions.html">Latest missions</a> page.'),
+    ('How can I follow along?', "Read <a href=\"blog.html\">Lani's blog</a>, or follow <a href=\"https://mfolanisblog.wordpress.com\">her own blog</a> to get new posts by email."),
+  ]),
+]
+faq = phero('Questions', "Quick answers about giving and about our work. Can't find yours? Call <a href=\"tel:+16026165557\">602-616-5557</a>.") + '<section class="wrap faq">' + ''.join(
+  f'<div class="faq-group"><h2>{g}</h2>' + ''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in qs) + '</div>' for g, qs in FAQ) + '</section>'
+page('faq.html', 'Questions: Missions for Orphans', 'Is my gift tax deductible? Can I give monthly? Where is Missions for Orphans? Quick answers.', faq)
+
+def imgsize(rel):
+  from PIL import Image
+  return Image.open(os.path.join(R, rel)).size
 for i, (s, t, c, k, x) in enumerate(BLOG):
+  blocks = list(POSTS[k]); cover = next((v for kind, v in blocks if kind == 'img'), None)
+  if cover: blocks.remove(['img', cover])
   parts, pend = [], []
   def flush():
     if not pend: return
@@ -413,12 +519,18 @@ for i, (s, t, c, k, x) in enumerate(BLOG):
       if len(pend) % 2: parts.append(f'<figure><img src="../assets/img/blog/{pend[-1]}" alt="" loading="lazy"></figure>')
     else: parts.append(f'<figure><img src="../assets/img/blog/{pend[0]}" alt="" loading="lazy"></figure>')
     pend.clear()
-  for kind, v in POSTS[k]:
+  for b in blocks:
+    kind, v = b[0], b[1]
     if kind == 'img': pend.append(v)
+    elif kind == 'grads':
+      flush(); parts.append('<div class="grads">' + ''.join(f'<figure><img src="../assets/img/blog/{f}" alt="{E(n)}" loading="lazy"><figcaption><b>{E(n)}</b><span>{E(sc)}</span></figcaption></figure>' for n, sc, f in v) + '</div>')
     else: flush(); parts.append('<p>%s</p>' % E(v))
   flush()
   nav = '<nav class="post-nav" aria-label="More posts">' + (f'<a href="{BLOG[i - 1][0]}.html">Newer: {E(BLOG[i - 1][1])}</a>' if i > 0 else '<a href="../blog.html">All posts</a>') + (f'<a href="{BLOG[i + 1][0]}.html">Older: {E(BLOG[i + 1][1])}</a>' if i + 1 < len(BLOG) else '<a href="../blog.html">All posts</a>') + '</nav>'
-  body = f'<article><header class="wrap page-head" style="max-width:40rem"><h1>{E(t)}</h1><div class="byline"><img src="../assets/img/lani.webp" alt="">Lani Orosco, co-founder</div></header><div class="wrap"><div class="prose">{"".join(parts)}</div>{nav}</div></article>'
+  meta = f'<div class="byline"><img src="../assets/img/lani.webp" alt="">Lani Orosco, co-founder<span class="b-date">{E(BLOGDATE[s])}</span></div>'
+  cw, ch = imgsize('assets/img/blog/' + cover) if cover else (0, 0)
+  src = (f'<p class="src">First published on <a href="{WPURL[s]}">Mama Lani’s own blog</a>.</p>' if s in WPURL else '')
+  body = '<article>' + phero(E(t), '', ('blog/' + cover) if cover else None, '', ['coral', 'sun', 'indigo'][i % 3], up='../', meta=meta, w=cw, h=ch) + f'<div class="wrap"><div class="prose">{"".join(parts)}{src}</div>{nav}</div></article>'
   og('blog-' + s, f'assets/img/blog/{c}.webp')
   page(f'blog/{s}.html', f"{t}: Lani's blog", x, body, depth=1, cur='blog.html', img=f'assets/img/og/blog-{s}.jpg', kind='article')
 print('ok')
