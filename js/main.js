@@ -78,5 +78,20 @@ if (form) {
   });
 }
 
+// Share a mission: copy its link
+document.querySelectorAll('[data-copy]').forEach((btn) => {
+  const label = btn.querySelector('span');
+  btn.addEventListener('click', async () => {
+    const url = btn.dataset.copy;
+    let ok = false;
+    try { await navigator.clipboard.writeText(url); ok = true; } catch {
+      const t = document.createElement('textarea'); t.value = url; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select(); try { ok = document.execCommand('copy'); } catch {} t.remove();
+    }
+    label.textContent = ok ? 'Link copied' : 'Copy failed';
+    setTimeout(() => { label.textContent = 'Copy link'; }, 2200);
+  });
+});
+
 // Footer year
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });

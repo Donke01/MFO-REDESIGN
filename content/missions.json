@@ -1,0 +1,137 @@
+{
+  "_how_to_add_a_mission": "See README.md, section \"Add a mission\". Newest first.",
+  "missions": [
+    {
+      "date": "2026-04-15",
+      "when": "15 April 2026",
+      "title": "190 widows fed in Kaisagat and Bwai",
+      "headline": "190 widows fed",
+      "story": [
+        "On April 15th, Missions for Orphans, led by Pastor Jim and Mike, served two groups of widows from Kaisagat and Bwai.",
+        "In total, 190 women received maize flour and beans to help sustain their households. It may seem simple, but moments like these carry real weight for the families who depend on them.",
+        "We're grateful to play even a small part in supporting these women, and thankful for the hands and hearts that made it possible."
+      ],
+      "photos": [
+        "april-15_1",
+        "april-15_2",
+        "april-15_3",
+        "april-15_4"
+      ],
+      "alt": "Widows from Kaisagat and Bwai at the April food distribution",
+      "program": "the-widows",
+      "tally": [
+        190,
+        "widows fed"
+      ],
+      "summary": "Led by Pastor Jim and Mike, we served two groups of widows from Kaisagat and Bwai. In total, 190 women received maize flour and beans to help sustain their households."
+    },
+    {
+      "date": "2026-01-23",
+      "when": "23 January 2026",
+      "title": "10 wheelchairs for St. Lilian School",
+      "headline": "10 wheelchairs",
+      "story": [
+        "On January 23, 2026, we visited St. Lilian School for Physically Challenged Children and gave 10 wheelchairs to children in need, helping them move more freely and comfortably every day.",
+        "Each wheelchair costs $160, $1,600 in all. The need is still great: many more children are waiting. With your help, we can reach them."
+      ],
+      "photos": [
+        "kenya-boys-donations-1",
+        "kenya-boys-donations-2",
+        "kenya-boys-donations-3",
+        "kenya-boys-donations-4"
+      ],
+      "alt": "Children at St. Lilian School with their new wheelchairs",
+      "program": "education-and-medical-care",
+      "tally": [
+        10,
+        "wheelchairs given"
+      ]
+    },
+    {
+      "date": "2025-12-16",
+      "when": "16 December 2025",
+      "title": "506 widows in six villages",
+      "headline": "506 widows served",
+      "story": [
+        "On December 16, 2025, we served 506 widows across six communities: Wiyeta, Munyaka, Karaus, Kwayu, Bwai and Kaisagat. Each woman received 1 kg of sugar and tea leaves.",
+        "Together they prayed for Missions for Orphans, asking God to expand our reach so we can keep serving those in need."
+      ],
+      "photos": [
+        "widows_2025-1",
+        "widows_2025_2",
+        "widows_2025_3",
+        "widows_2025_4"
+      ],
+      "alt": "Widows from six villages at the December distribution",
+      "program": "the-widows",
+      "tally": [
+        506,
+        "widows fed"
+      ]
+    },
+    {
+      "date": "2025-12",
+      "when": "December 2025",
+      "title": "A home for Mary Esekhon",
+      "headline": "1 new home",
+      "story": [
+        "Meet Mary Esekhon, a widow of 27 years and mother of seven. After the heartbreaking loss of three of her children, she cares for her four remaining children with strength and grace.",
+        "Thanks to our supporters, Mary's new home is in progress: a safe, lasting place for her family. We'll share more as it goes up."
+      ],
+      "photos": [
+        "nov-widows-house-project-2",
+        "nov-widows-house-project-1",
+        "nov-widows-house-project-3",
+        "nov-widows-house-project-4"
+      ],
+      "alt": "Mary Esekhon's new home being built",
+      "program": "the-widows",
+      "tally": [
+        1,
+        "home being built"
+      ],
+      "summary": "A widow of 27 years and mother of seven, Mary cares for her four remaining children. Thanks to our supporters, her new home is going up.",
+      "status": "Being built now"
+    },
+    {
+      "date": "2025-08",
+      "when": "August 2025",
+      "title": "12 baskets for the mamas",
+      "headline": "$165 for 12 baskets",
+      "story": [
+        "It's basket time again! We put together 12 baskets of everyday essentials for the mamas in need around our property: simple things that make a hard week a little lighter.",
+        "The total came to just $165, proof that small amounts make a big difference."
+      ],
+      "photos": [
+        "baskets-1",
+        "baskets-3",
+        "baskets-4",
+        "baskets-5"
+      ],
+      "alt": "Baskets of everyday essentials for widows",
+      "program": "the-widows",
+      "tally": [
+        12,
+        "baskets of essentials"
+      ]
+    },
+    {
+      "date": "2025-08",
+      "when": "August 2025",
+      "title": "Looking back at the widows’ homes",
+      "headline": "2 rooms in every new home",
+      "story": [
+        "We looked back on our journey of building homes for widows and saw how far it has come: from simple 8 by 8 foot spaces to today’s 15 by 20 foot homes with two rooms.",
+        "What started as a check on past builds became a reminder of what these homes mean to the families living in them."
+      ],
+      "photos": [
+        "kenya-widow-support_aug-4",
+        "keyna-widows-mission-work-1_aug",
+        "kenya-widows-mission_aug-2",
+        "kenya-widows-support-aug-3"
+      ],
+      "alt": "Widows outside their new homes",
+      "program": "the-widows"
+    }
+  ]
+}

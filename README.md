@@ -1,20 +1,64 @@
 # Missions for Orphans: website redesign
 
-A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fast static site with no build step. All text and photos are Missions for Orphans' own, from their current site.
+A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fast static site. All text and photos are Missions for Orphans' own, from their current site and Lani's blog.
 
 ## Pages
 
 | File | Page |
 | --- | --- |
-| `index.html` | Home: hero, what your gifts did, what we do, our family, choose where your gift goes |
+| `index.html` | Home: hero, what your gifts did, latest from Kipsaina, our family, the Pastor Ryan video, Lani's blog |
 | `who-we-are.html` | Story, co-founder quote, team |
-| `what-we-do.html` | The six programs in detail, giving funds |
-| `missions.html` | Every dated mission with its photo gallery (tap for full size) |
-| `donate.html` | The five funds, other ways to give |
+| `what-we-do.html` | The six programs, each with its number and the totals from the mission reports, giving funds |
+| `missions.html` | Every dated mission with its photo gallery (tap for full size) and WhatsApp, Facebook and copy-link sharing |
+| `donate.html` | The five funds, tax records, monthly giving, a widow's home, other ways to give |
+| `widow-homes.html` | Fund a widow's home: how the homes have grown, Mary Esekhon's home, Monica's home |
 | `contact.html` | Phone, address, contact form |
-| `blog.html`, `blog/*.html` | Lani's blog: the three posts from the current site |
+| `blog.html`, `blog/*.html` | Lani's blog: the three posts from the current site, plus her newest posts from mfolanisblog.wordpress.com (loaded live by `js/blogfeed.js`) |
 
-Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form). Photos are in `assets/img/` as WebP.
+Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form, copy link). Photos are in `assets/img/` as WebP.
+
+## How the pages are made
+
+The HTML pages are written by `tools/build.py` from the files in `content/`:
+
+- `content/missions.json`: every mission report (also feeds the home page's "Latest from Kipsaina" and the totals on What we do)
+- `content/site.json`: the site's address (used in link previews and share links) and the widow-homes progress bar
+- `content/blog-posts.json`: the three posts copied from the old site
+
+After any push that changes `content/`, `tools/`, `css/`, `js/` or a mission photo, GitHub runs the build (`.github/workflows/build.yml`) and commits the new pages. To build on a computer instead: `pip install Pillow`, then `python3 tools/build.py`.
+
+## Add a mission
+
+1. Upload 1 to 4 photos (JPG or PNG is fine) to `assets/img/missions/` on GitHub, with short names like `may-20_1.jpg`.
+2. Open `content/missions.json` on GitHub, press the pencil, and paste a new entry at the top of the list (newest first):
+
+```json
+{
+  "date": "2026-05-20",
+  "when": "20 May 2026",
+  "title": "150 widows fed in Wiyeta",
+  "headline": "150 widows fed",
+  "summary": "One or two sentences for the home page.",
+  "story": ["First paragraph.", "Second paragraph."],
+  "photos": ["may-20_1", "may-20_2", "may-20_3", "may-20_4"],
+  "alt": "What the first photo shows, for people using screen readers",
+  "program": "the-widows",
+  "tally": [150, "widows fed"]
+},
+```
+
+3. Commit. In a minute or two the mission is on the Missions page, it becomes the home page's "Latest from Kipsaina", and its `tally` is added to the program's totals on What we do.
+
+- `headline` starts with the number (it is shown large).
+- `program` is one of `the-boys`, `the-widows`, `village-members`, `our-projects`, `education-and-medical-care`, `outreach`. Leave it out if none fits.
+- `tally` is optional. Use the same words each time (for example always "widows fed") so they add up.
+- Add `"status": "Being built now"` to show a mission as the small second card on the home page.
+
+The three cards under "What your gifts did this year" are written by hand in `tools/build.py` (search for `gift-grid`): update them once or twice a year.
+
+## Widow-homes progress bar
+
+In `content/site.json`, set `widow_homes.goal_usd` and `widow_homes.raised_usd` (for example `9000` and `4200`). The bar appears on `widow-homes.html` after the next build. Set them back to `null` to hide it.
 
 ## Design: "Sunrise"
 
@@ -30,9 +74,10 @@ Direction 1 from the Figma file "Missions for Orphans · Card redesign" (https:/
 ## Before going live
 
 1. **Donate buttons** go to the existing GiveWP forms on missionsfororphans.org (`/orphan-care-and-support/`, `/widows-support/`, `/community-outreach/`, `/onsite-projects/`, `/where-its-needed-most/`). Keep those forms, or point the links at a new donation page.
-2. **Contact form** needs somewhere to send messages: set `data-endpoint` on the form in `contact.html` (for example a Formspree URL). Until then it asks visitors to call.
+2. **Contact form** needs somewhere to send messages: set `data-endpoint` on the form (in `tools/build.py`, search for `data-endpoint`), for example a Formspree URL. Until then it asks visitors to call.
 3. **Founding story**: the old "What we do" page says MFO began after a trip to Uganda; "Who we are" says Kenya (Bondo, Barkowino Primary School). This redesign uses the "Who we are" version. Confirm with the founders.
 4. **Team roles**: the old site gives roles only for Coney, Lani, Ryan and Edward & Isabel. The others are shown as "Family"; replace with their real roles.
+5. **Site address**: when the site moves to missionsfororphans.org, change `url` in `content/site.json` so link previews and share links use the new address.
 
 ## Preview locally
 

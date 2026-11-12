@@ -1,0 +1,9 @@
+{
+  "url": "https://donke01.github.io/MFO-REDESIGN/",
+  "_url_note": "Change to https://missionsfororphans.org/ when the site moves to its own domain.",
+  "widow_homes": {
+    "goal_usd": null,
+    "raised_usd": null,
+    "_note": "Set both numbers (for example 9000 and 4200) to show a progress bar on widow-homes.html. Leave them null to hide it."
+  }
+}

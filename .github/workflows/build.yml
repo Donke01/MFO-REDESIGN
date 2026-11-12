@@ -1,0 +1,26 @@
+# Rebuilds the pages whenever content or photos change, then commits the result.
+# Edit content/missions.json (or add photos to assets/img/missions/) on GitHub, and the site updates itself.
+name: Build pages
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'tools/**', 'assets/img/missions/**', 'css/**', 'js/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: build-pages, cancel-in-progress: false }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install Pillow
+      - run: python tools/build.py
+      - name: Commit the rebuilt pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "Nothing changed" || (git commit -m "Rebuild pages" && git push)
