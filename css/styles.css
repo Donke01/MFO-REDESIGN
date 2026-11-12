@@ -146,8 +146,8 @@ p { margin: 0 0 1em; }
 
 /* what your gifts did: one big card and two small (option 3, Figma page "Gifts options") */
 .gifts { padding: 80px 0 88px; }
-.gifts-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-bottom: 30px; }
-.gifts-head .link { font-size: 1.05rem; }
+.gifts-head, .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-bottom: 30px; }
+.gifts-head .link, .sec-head .link { font-size: 1.05rem; }
 .gift-grid { display: grid; grid-template-columns: 1.47fr 1fr; grid-template-rows: 1fr 1fr; gap: 24px; }
 .gift { position: relative; display: block; overflow: hidden; border-radius: 34px; text-decoration: none; box-shadow: var(--lift); transition: transform .3s var(--ease), box-shadow .3s; }
 .gift:hover { transform: translateY(-4px); box-shadow: var(--lift-hover); }
@@ -193,6 +193,46 @@ p { margin: 0 0 1em; }
   .gift.coral .g-txt, .gift.sun .g-txt { max-width: none; margin-top: 8px; font-size: .9rem; line-height: 1.35; }
   .g-x { display: none; }
 }
+
+/* home: latest from Kipsaina (newest mission + a home being built) */
+.sec-head { align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-bottom: 30px; }
+.news { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; padding: 18px; background: #fff; border-radius: 36px; box-shadow: var(--lift); }
+.news-ph { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; aspect-ratio: 3 / 2; }
+.news-ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+.news-ph img:first-child { grid-row: span 2; border-radius: 26px 16px 16px 26px; }
+.news-ph img:nth-child(2) { border-top-right-radius: 26px; } .news-ph img:nth-child(3) { border-bottom-right-radius: 26px; }
+.news-in { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 10px 26px 10px 0; }
+.news-in h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.news-in p { margin: 0; color: var(--soft); font-size: 1.08rem; }
+.news.small { grid-template-columns: 220px 1fr; gap: 28px; margin-top: 22px; }
+.news.small > img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 24px; }
+.news.small h3 { font-size: 1.5rem; }
+@media (max-width: 860px) {
+  .news { grid-template-columns: 1fr; gap: 18px; padding: 12px 12px 22px; border-radius: 30px; }
+  .news-in { padding: 0 10px; gap: 12px; }
+  .news.small { grid-template-columns: 96px 1fr; gap: 16px; align-items: start; padding: 12px 12px 18px; }
+  .news.small > img { border-radius: 20px; }
+  .news.small .news-in { padding: 4px 4px 0 0; }
+  .news.small h3 { font-size: 1.25rem; }
+  .news.small p { font-size: 1rem; }
+}
+@media (max-width: 420px) { .news.small { grid-template-columns: 1fr; } .news.small > img { aspect-ratio: 16 / 9; } .news.small .news-in { padding: 0 8px; } }
+
+/* home: the video (loads YouTube only when someone presses play) */
+.watch { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: center; padding: 96px 0; }
+.watch-copy p { margin: 18px 0 0; color: var(--soft); font-size: 1.15rem; max-width: 26em; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 32px; overflow: hidden; background: var(--indigo-deep); box-shadow: var(--lift); }
+.video-frame button { display: block; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: none; }
+.video-frame button img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.video-frame button:hover img { transform: scale(1.03); }
+.video-frame .play { position: absolute; left: 50%; top: 50%; display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: var(--coral); color: #fff; box-shadow: 0 0 0 10px rgba(255, 255, 255, .35), 0 18px 36px -12px rgba(0, 0, 0, .5); transition: transform .25s var(--ease); }
+.video-frame button:hover .play { transform: scale(1.08); }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+@media (max-width: 860px) { .watch { grid-template-columns: 1fr; gap: 24px; padding: 56px 0; } .video-frame { border-radius: 24px; } .video-frame .play { width: 68px; height: 68px; margin: -34px 0 0 -34px; } }
+
+/* home: from Lani's blog */
+.band.blush-band { background: var(--blush); }
+.from-lani .posts { padding: 0; }
 
 /* program cards (home) */
 .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
@@ -382,7 +422,7 @@ footer .legal { margin-top: 36px; font-size: .88rem; }
   html.mo-arrive main { animation: moIn .4s ease backwards; }
   html.mo-leave main { opacity: 0; transition: opacity .18s ease; }
   @keyframes moIn { from { opacity: 0; transform: translateY(8px); } }
-  html.mo :is(.pcard, .post-card, .gallery button, .arch, .program, .mc-ph, .tcard, .gift, .fund) img:not(.mo-ok) { background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 70%) 0 0 / 220% 100%, #E6EEF9; animation: moShimmer 1.6s linear infinite; }
+  html.mo :is(.pcard, .post-card, .news, .gallery button, .arch, .program, .mc-ph, .tcard, .gift, .fund) img:not(.mo-ok) { background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 70%) 0 0 / 220% 100%, #E6EEF9; animation: moShimmer 1.6s linear infinite; }
   @keyframes moShimmer { from { background-position: 120% 0, 0 0; } to { background-position: -120% 0, 0 0; } }
   .hero h1 { animation: moRise .8s var(--ease) both; }
   .hero p, .hero .acts { animation: moRise .8s var(--ease) .12s both; }

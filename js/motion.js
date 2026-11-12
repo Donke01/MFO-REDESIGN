@@ -34,7 +34,7 @@
   addEventListener('resize', prog); prog();
 
   // cards rise in, a little after each other
-  var CARDS = '.fund,.gift,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
+  var CARDS = '.fund,.gift,.news,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
   var queue = [], busy = false;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); queue.push(e.target); } });
