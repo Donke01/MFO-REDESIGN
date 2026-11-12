@@ -6,7 +6,7 @@ A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fas
 
 | File | Page |
 | --- | --- |
-| `index.html` | Home: hero, "What your gifts did this year" (the gift receipt), programs, how it began, video, team, giving funds |
+| `index.html` | Home: hero, what your gifts did, what we do, our family, choose where your gift goes |
 | `who-we-are.html` | Story, co-founder quote, team |
 | `what-we-do.html` | The six programs in detail, giving funds |
 | `missions.html` | Every dated mission with its photo gallery (tap for full size) |
@@ -16,14 +16,16 @@ A redesign of [missionsfororphans.org](https://missionsfororphans.org/) as a fas
 
 Shared styles are in `css/styles.css` and behaviour in `js/main.js` (mobile menu, photo lightbox, click-to-load YouTube video, contact form). Photos are in `assets/img/` as WebP.
 
-## Design (direction A: "Where your gift goes")
+## Design: "Sunrise"
 
-- **Colours** come from the heart logo: Kenya green `#1f7a3a` and red `#d62839` on white, with a soft green mist `#eef3ef` for bands and ink `#1d1d1b`.
-- **Type**: Poppins (the logo's typeface) for headings and buttons, Literata for reading (Google Fonts).
-- **Premium face-lift** (the same approach as rafikioutreach.org): every card is "Pearl", white fading to a soft leaf green, with a hairline border, layered soft shadows and large rounded corners. On hover a card lifts, its photo eases in, a green-to-red line grows along its top and a soft light follows the pointer. Buttons have a gentle gradient and shadow.
-- **Cards** follow the Figma file "Missions for Orphans · Card redesign" (https://www.figma.com/design/XQGP9b3nb9uJ5mHqNbkqz0): fund, program (photo-led), mission (photo left, big red number), team (square portrait and role tag), blog (date and byline) and ways-to-give (icon) cards. Cards carry no green: white to warm-grey surfaces, grey hairlines and tags, red as the only accent.
-- **Motion** (`js/motion.js`): a green-to-red scroll line at the top, cards that rise in once as you scroll, numbers in the receipt that count up, photos that shimmer until they load, and a quick fade between pages. With reduced motion turned on, nothing moves and the pages look the same.
-- **The gift receipt** on the home page lists real dates, numbers and costs ($160 a wheelchair, $165 for 12 baskets). Add each new mission there and on `missions.html`.
+Direction 1 from the Figma file "Missions for Orphans · Card redesign" (https://www.figma.com/design/XQGP9b3nb9uJ5mHqNbkqz0), page "Homepage directions".
+
+- **Colours** from Kenyan kitenge prints: indigo `#23306B`, coral `#EF5B4C` (giving), sunflower `#F5B935`, with soft sky `#DCEBFA`, blush `#FDE4DF` and butter `#FFF1CC` tints. No green.
+- **Type**: Outfit for headings and buttons, Figtree for reading, Caveat for Mama Lani's signature (Google Fonts).
+- **Homepage** in six parts: hero (photo in an arch with a sun behind it and a "190 widows fed" note), what your gifts did (indigo, coral and sunflower number cards), what we do (three programs on sky), our family (Lani's quote and the family's faces), choose where your gift goes (five colour tiles), footer.
+- **Cards**: number cards and giving tiles in solid colours with round photos; white program, mission, team, blog and ways-to-give cards with large rounded corners and colour tags. On phones the number cards and program cards swipe sideways.
+- **Motion** (`js/motion.js`): a scroll line in indigo, coral and sunflower, the hero rising in with the sun, cards rising in as you scroll, numbers counting up, photos shimmering until they load, and a quick fade between pages. Nothing moves with reduced motion turned on.
+- Add each new mission on `missions.html`, and update the three number cards on the home page.
 
 ## Before going live
 

@@ -34,7 +34,7 @@
   addEventListener('resize', prog); prog();
 
   // cards rise in, a little after each other
-  var CARDS = '.fund,.item,.ways > div,.post-card,.faces > div,.mission,.mcard,.pcard,.program,.slip .row,.contact .block';
+  var CARDS = '.fund,.stat-card,.pcard,.ways > div,.post-card,.tcard,.mcard,.program,.contact .block';
   var queue = [], busy = false;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); queue.push(e.target); } });
@@ -66,7 +66,7 @@
     }
     requestAnimationFrame(step);
   }
-  document.querySelectorAll('.row .amt, .program .fact, .stat b').forEach(function (el) {
+  document.querySelectorAll('.stat-card b, .program .fact, .stat b').forEach(function (el) {
     var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) return;
     nio.observe(el);
   });
