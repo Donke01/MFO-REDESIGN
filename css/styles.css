@@ -840,6 +840,9 @@ main { overflow-x: clip; }
 .pl-track li { display: flex; align-items: center; gap: 26px; padding-right: 26px; font: 700 clamp(1.25rem, 2.6vw, 1.7rem)/1.2 var(--head); color: #A3ACCF; white-space: nowrap; }
 .pl-track li::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sun); }
 .pl-track li:nth-child(3n+2)::after { background: var(--coral); } .pl-track li:nth-child(3n)::after { background: var(--sky); }
+.pl-track li small { margin-left: -16px; padding: 3px 9px; border-radius: 999px; background: var(--butter); color: #8A5A00; font: 600 .78rem var(--read); }
+.pl-track li.county { margin-right: 26px; padding: 8px 16px; border-radius: 999px; background: var(--indigo); color: #fff; font-size: clamp(1rem, 2vw, 1.15rem); }
+.pl-track li.county::after { display: none; }
 @keyframes plMove { to { transform: translateX(-50%); } }
 .places + .gifts { padding-top: 64px; }
 @media (max-width: 760px) { .places { padding-top: 36px; } .places + .gifts { padding-top: 44px; } }

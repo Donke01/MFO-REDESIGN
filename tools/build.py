@@ -239,7 +239,7 @@ home = f'''<section class="hero" aria-labelledby="hh">
   </div>
 </section>
 
-<section class="places" aria-label="Where we serve"><p>Where we serve</p><div class="pl-wrap"><div class="pl-track"><ul><li>Kipsaina</li><li>Kitale</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li>Pokot</li><li>Trans Nzoia</li></ul><ul aria-hidden="true"><li>Kipsaina</li><li>Kitale</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li>Pokot</li><li>Trans Nzoia</li></ul></div></div></section>
+<section class="places" aria-label="Where we serve"><p>Where we serve</p><div class="pl-wrap"><div class="pl-track"><ul><li class="county">Trans Nzoia County</li><li>Kitale <small>main town</small></li><li>Kipsaina</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li class="county">West Pokot County</li><li>Pokot villages <small>our preschools</small></li></ul><ul aria-hidden="true"><li class="county">Trans Nzoia County</li><li>Kitale <small>main town</small></li><li>Kipsaina</li><li>Wiyeta</li><li>Munyaka</li><li>Karaus</li><li>Kwayu</li><li>Bwai</li><li>Kaisagat</li><li class="county">West Pokot County</li><li>Pokot villages <small>our preschools</small></li></ul></div></div></section>
 
 <section class="wrap gifts" id="gifts" aria-labelledby="gh1">
   <div class="gifts-head"><h2 id="gh1">What your gifts did this year</h2><a class="link" href="missions.html">See every mission, with photos</a></div>
