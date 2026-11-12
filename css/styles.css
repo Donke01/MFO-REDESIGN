@@ -683,7 +683,7 @@ footer.foot ul { list-style: none; margin: 0; padding: 0; }
   .f-form { max-width: none; }
   .f-legal { flex-direction: column; align-items: center; text-align: center; gap: 4px; margin-top: 36px; font-size: .85rem; }
   .f-land { margin-top: 10px; }
-  .f-land img { height: 220px; object-position: 58% 100%; }
+  .f-land img { height: auto; aspect-ratio: 640 / 470; object-position: 50% 100%; }
 }
 
 /* motion (js/motion.js adds html.mo) */

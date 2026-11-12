@@ -160,7 +160,7 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
     </div>
   </div>
   <div class="wrap f-legal"><p>Missions for Orphans is a 501(c)(3) non-profit, and donations are tax deductible. © <span data-year>2026</span></p><p>Kipsaina, near Kitale, Kenya</p></div>
-  <div class="f-land" aria-hidden="true"><img src="{up}assets/img/footer-land.svg" alt="" loading="lazy" width="1600" height="430"></div>
+  <div class="f-land" aria-hidden="true"><picture><source media="(max-width: 600px)" srcset="{up}assets/img/footer-land-phone.svg" width="640" height="470"><img src="{up}assets/img/footer-land.svg" alt="" loading="lazy" width="1600" height="430"></picture></div>
 </footer>
 <dialog class="lightbox" aria-label="Photo"><button type="button">Close</button><img src="" alt=""></dialog>
 <script src="{up}js/main.js?v={ver("js/main.js")}" defer></script>
