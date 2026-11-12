@@ -109,7 +109,7 @@ p { margin: 0 0 1em; }
   .brand { font-size: .95rem; }
   .nav { top: 76px; right: 12px; }
 }
-@media (max-width: 360px) { .brand span { display: none; } }
+@media (max-width: 349px) { .brand span { display: none; } }
 @keyframes navIn { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
 @keyframes fadeIn { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .nav.open, html.menu-open body::after { animation: none; } }
@@ -709,3 +709,14 @@ main { overflow-x: clip; }
 .soc-whatsapp { background: #25D366; }
 .soc-facebook { background: #1877F2; }
 .soc-instagram { background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%); }
+
+/* phones: with the larger text, keep the logo, Donate and menu inside the bar */
+@media (max-width: 440px) {
+  .top .wrap.bar { gap: 6px; padding: 6px 6px 6px 12px; }
+  .brand { flex: 0 1 auto; min-width: 0; gap: 8px; font-size: .84rem; }
+  .brand img { height: 30px; flex: none; }
+  .brand span { min-width: 0; }
+  .top .btn { min-height: 40px; padding: 0 12px 0 11px; font-size: .86rem; gap: 5px; }
+  .top .btn svg { width: 14px; height: 14px; }
+  .menu-toggle { width: 40px; height: 40px; }
+}
