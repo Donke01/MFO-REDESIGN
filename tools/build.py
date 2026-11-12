@@ -99,7 +99,7 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
   TEL = '<span class="nv-ph nv-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
   nav = ''.join('<a href="%s%s"%s>%s<span>%s</span></a>' % (up, h, ' aria-current="page"' if h == cur else '',
     ('<img class="nv-ph" src="%sassets/img/%s.webp" alt="" width="46" height="46" loading="lazy">' % (up, PH[h])) if h in PH else TEL, E(t)) for h, t in NAV)
-  more = ('<div class="nav-more"><b>Give to</b><div class="nav-give">' + ''.join('<a class="g%d" href="%s%s/">%s</a>' % (i, GIVE, sl, t) for i, (sl, t) in enumerate(
+  more = ('<div class="nav-more"><b>Give to</b><div class="nav-give">' + ''.join('<a class="g%d" href="%sgive.html?fund=%s">%s</a>' % (i, up, sl, t) for i, (sl, t) in enumerate(
     [('orphan-care-and-support', 'Orphan care'), ('widows-support', 'Widows'), ('community-outreach', 'Outreach'), ('where-its-needed-most', 'Needed most')]))
     + '</div><a class="nav-tel" href="tel:+16026165557">Questions? Call 602-616-5557</a></div>')
   out = f'''<!doctype html>
@@ -174,7 +174,7 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
 
 def funds(up=''):
   return '<div class="funds">' + ''.join(
-    f'<a class="fund" href="{GIVE}{slug}/"><img src="{up}assets/img/{img}.webp" alt="" loading="lazy" width="933" height="525"><b>{E(t)}</b><small>{E(d)}</small><span class="give-pill">Give</span></a>'
+    f'<a class="fund" href="{up}give.html?fund={slug}"><img src="{up}assets/img/{img}.webp" alt="" loading="lazy" width="933" height="525"><b>{E(t)}</b><small>{E(d)}</small><span class="give-pill">Give</span></a>'
     for slug, t, d, img in FUNDS) + '</div>'
 
 TEAM = [('coney', 'Coney Orosco', 'Co-founder'), ('lani', 'Lani Orosco', 'Co-founder'), ('ryan', 'Ryan Orosco', 'Director'), ('bianca', 'Bianca Orosco', 'Family'),
@@ -364,7 +364,7 @@ don = phero('Your gift can change a life', 'Every gift becomes something real: c
         <li><b>Choose an amount</b><span>$10, $25, $50, $100 or $250, or type your own.</span></li>
         <li><b>Tick “Make this donation every month”</b><span>Then pay securely with PayPal or a card through PayPal.</span></li>
       </ol>
-      <a class="btn" href="{GIVE}where-its-needed-most/"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>Start a monthly gift</a>
+      <a class="btn" href="give.html?fund=where-its-needed-most"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>Start a monthly gift</a>
     </div>
     <div class="mon-cost">
       <h3>What gifts have bought</h3>
@@ -401,7 +401,7 @@ if goal and raised is not None:
   pct = max(0, min(100, round(100 * raised / goal)))
   bar = f'''<div class="progress" role="group" aria-label="Raised for widows' homes"><div class="pr-top"><b>${raised:,}</b><span>raised of ${goal:,}</span></div><div class="pr-bar"><i style="width:{pct}%"></i></div><span class="pr-note">{pct}% of this year's goal</span></div>'''
 def gal_strip(fs, alt): return '<div class="gallery wh-gal">' + ''.join(f'<button type="button" data-full="assets/img/missions/{f}.webp"><img src="assets/img/missions/{f}.webp" alt="{E(alt)}" loading="lazy" width="1200" height="900"></button>' for f in fs) + '</div>'
-homes = phero("Fund a widow's home", 'Each year we aim to build six homes for widows in the greatest need. In 2023 we built five, at a cost of $900 each.', 'wsupport.webp', 'A widow receiving supplies from our team', 'coral', f'<a class="btn" href="{GIVE}widows-support/">' + '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>' + "Give to widows' homes</a>", w=933, h=525) + (f'<div class="wrap">{bar}</div>' if bar else '') + f'''
+homes = phero("Fund a widow's home", 'Each year we aim to build six homes for widows in the greatest need. In 2023 we built five, at a cost of $900 each.', 'wsupport.webp', 'A widow receiving supplies from our team', 'coral', f'<a class="btn" href="give.html?fund=widows-support">' + '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>' + "Give to widows' homes</a>", w=933, h=525) + (f'<div class="wrap">{bar}</div>' if bar else '') + f'''
 <section class="wrap grow" aria-labelledby="gr">
   <h2 id="gr">How the homes have grown</h2>
   <div class="grow-row">
@@ -424,7 +424,7 @@ if look:
   homes += f'''
 <section class="wrap wh-look" aria-labelledby="lk"><h2 id="lk">{E(look['title'])}</h2>{"".join("<p>%s</p>" % E(x) for x in look['story'])}{gal_strip([f for f in look['photos'] if f != 'kenya-widow-support_aug-4'][:3], look['alt'])}</section>'''
 homes += f'''
-<section class="wrap wh-cta"><div><h2>Help build the next one</h2><p>Give to widows' support and your gift goes to food and homes for widows around Kipsaina.</p></div><a class="btn" href="{GIVE}widows-support/">Give to widows' homes</a></section>'''
+<section class="wrap wh-cta"><div><h2>Help build the next one</h2><p>Give to widows' support and your gift goes to food and homes for widows around Kipsaina.</p></div><a class="btn" href="give.html?fund=widows-support">Give to widows' homes</a></section>'''
 og('widow-homes', 'assets/img/house2.webp')
 page('widow-homes.html', "Fund a widow's home: Missions for Orphans", "Each year we aim to build six two-room homes for widows in Kipsaina, Kenya. See Mary Esekhon's home going up.", homes, img='assets/img/og/widow-homes.jpg')
 
@@ -459,7 +459,7 @@ page('blog.html', "Lani's blog: Missions for Orphans", 'Notes from Kenya by Miss
 
 # ---------------------------------------------------------------- our land and farm (from Lani's blog and the old What we do page)
 HEART = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>'
-land = phero('Our land and farm', 'Seven acres near Kitale: the boys’ home, a church, a farm, and over 8,000 tea plants.', 'onsite.webp', 'Buildings on our property in Kipsaina', 'sun', f'<a class="btn" href="{GIVE}onsite-projects/">{HEART}Give to onsite projects</a>', w=933, h=525) + f'''
+land = phero('Our land and farm', 'Seven acres near Kitale: the boys’ home, a church, a farm, and over 8,000 tea plants.', 'onsite.webp', 'Buildings on our property in Kipsaina', 'sun', f'<a class="btn" href="give.html?fund=onsite-projects">{HEART}Give to onsite projects</a>', w=933, h=525) + f'''
 <section class="wrap land-grid" aria-labelledby="on">
   <h2 id="on">What's on the land</h2>
   <div class="cards-x">
@@ -477,7 +477,7 @@ land = phero('Our land and farm', 'Seven acres near Kitale: the boys’ home, a 
   <div><h2 id="wl">A wall we built ourselves</h2><p>One of our largest projects was a brick fence around the whole seven acres, to keep the children and farm workers safe.</p><p>We make our own bricks. Several of the boys have learned to make them, build with them and help with concrete work.</p></div>
   <div class="pair-ph"><img src="assets/img/blog/summer-pic-1-495x400.webp" alt="Part of the brick wall around our land" loading="lazy" width="495" height="400"><img src="assets/img/blog/summer-pic-2-495x400.webp" alt="Bricks we made, stacked and drying" loading="lazy" width="495" height="400"></div>
 </section>
-<section class="wrap cta-band"><div><h2>Help build on the land</h2><p>Gifts to onsite projects go to the farm, the safety wall and building on our property.</p></div><a class="btn" href="{GIVE}onsite-projects/">Give to onsite projects</a></section>'''
+<section class="wrap cta-band"><div><h2>Help build on the land</h2><p>Gifts to onsite projects go to the farm, the safety wall and building on our property.</p></div><a class="btn" href="give.html?fund=onsite-projects">Give to onsite projects</a></section>'''
 og('land', 'assets/img/onsite.webp')
 page('land.html', 'Our land and farm: Missions for Orphans', 'Seven acres near Kitale, Kenya: the boys’ home, a church, a farm and over 8,000 tea plants.', land, img='assets/img/og/land.jpg')
 
@@ -518,7 +518,7 @@ schools = phero('Schools and training', 'There is no free school here. We pay fe
   </div>
   <p class="muted src-note">From Mama Lani's blog, September 2021.</p>
 </section>
-<section class="wrap cta-band"><div><h2>Help a child stay in school</h2><p>Gifts to community outreach pay school fees, uniforms and medical missions in the villages.</p></div><a class="btn" href="{GIVE}community-outreach/">Give to community outreach</a></section>'''
+<section class="wrap cta-band"><div><h2>Help a child stay in school</h2><p>Gifts to community outreach pay school fees, uniforms and medical missions in the villages.</p></div><a class="btn" href="give.html?fund=community-outreach">Give to community outreach</a></section>'''
 og('schools', 'assets/img/blog/img_4305.webp')
 page('schools.html', 'Schools and training: Missions for Orphans', 'School fees, uniforms, preschools in Pokot, a tailoring school and trades for young people in Kipsaina, Kenya.', schools, img='assets/img/og/schools.jpg')
 
@@ -544,6 +544,54 @@ FAQ = [
 faq = phero('Questions', "Quick answers about giving and about our work. Can't find yours? Call <a href=\"tel:+16026165557\">602-616-5557</a>.") + '<section class="wrap faq">' + ''.join(
   f'<div class="faq-group"><h2>{g}</h2>' + ''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in qs) + '</div>' for g, qs in FAQ) + '</section>'
 page('faq.html', 'Questions: Missions for Orphans', 'Is my gift tax deductible? Can I give monthly? Where is Missions for Orphans? Quick answers.', faq)
+
+
+# ---------------------------------------------------------------- give: choose a fund, then their secure GiveWP form for it, in the page
+# The forms live on missionsfororphans.org (GiveWP + PayPal); this page shows the chosen one in a frame.
+FUNDINFO = {slug: (t, d, img) for slug, t, d, img in FUNDS}
+GIVEFORM = GIVE + 'give/{slug}?giveDonationFormInIframe=1'
+pick = ''.join(
+  f'<a class="pick" href="give.html?fund={slug}" data-fund="{slug}" data-title="{E(t)}"><img src="assets/img/{img}.webp" alt="" width="933" height="525" loading="lazy"><span><b>{E(t)}</b><small>{E(d)}</small></span><i aria-hidden="true"></i></a>'
+  for slug, t, d, img in FUNDS)
+give = phero('Give to Kipsaina', 'Choose where your gift goes, then give once or every month. Every gift is tax deductible and goes to the programs.', 'kids.webp', 'Children from the villages around Kipsaina', 'coral', w=933, h=525) + f'''
+<section class="wrap give-app" aria-label="Give">
+  <div class="give-side">
+    <h2><span class="step">1</span>Choose where your gift goes</h2>
+    <div class="picks" role="list">{pick}</div>
+    <div class="give-notes">
+      <p><b>Give every month:</b> in the form, tick “Make this donation every month”.</p>
+      <p><b>Tax records:</b> the form asks for your billing address so we can mail your records for tax purposes at the end of the year.</p>
+      <p><b>Rather give by check or phone?</b> See <a href="donate.html#ways">other ways to give</a>.</p>
+    </div>
+  </div>
+  <div class="give-form">
+    <h2><span class="step">2</span><span>Your gift to <b id="give-fund">where it's needed most</b></span></h2>
+    <div class="gf-frame"><iframe id="give-frame" title="Secure donation form" data-base="{GIVEFORM}" src="{GIVEFORM.replace('{slug}', 'where-its-needed-most')}" allow="payment" loading="lazy"></iframe></div>
+    <p class="gf-note">The form is secure and run by our giving system with PayPal. Trouble with it? <a id="give-open" href="{GIVE}where-its-needed-most/" target="_blank" rel="noopener">Open the form on its own page</a> or call <a href="tel:+16026165557">602-616-5557</a>.</p>
+  </div>
+</section>
+<script>
+(function () {{
+  var frame = document.getElementById('give-frame'), name = document.getElementById('give-fund'), open = document.getElementById('give-open');
+  var picks = document.querySelectorAll('.pick'), base = frame.getAttribute('data-base');
+  function choose(slug, push) {{
+    var p = document.querySelector('.pick[data-fund="' + slug + '"]') || document.querySelector('.pick[data-fund="where-its-needed-most"]');
+    slug = p.getAttribute('data-fund');
+    picks.forEach(function (x) {{ var on = x === p; x.classList.toggle('on', on); if (on) x.setAttribute('aria-current', 'true'); else x.removeAttribute('aria-current'); }});
+    name.textContent = p.getAttribute('data-title').toLowerCase() === "where it's needed most" ? "where it's needed most" : p.getAttribute('data-title');
+    var src = base.replace('{{slug}}', slug);
+    if (frame.getAttribute('src') !== src) {{ frame.classList.add('loading'); frame.setAttribute('src', src); }}
+    open.href = '{GIVE}' + slug + '/';
+    if (push) try {{ history.replaceState(null, '', 'give.html?fund=' + slug); }} catch (e) {{}}
+  }}
+  frame.addEventListener('load', function () {{ frame.classList.remove('loading'); }});
+  picks.forEach(function (p) {{ p.addEventListener('click', function (e) {{ e.preventDefault(); choose(p.getAttribute('data-fund'), true);
+    if (innerWidth < 900) document.querySelector('.give-form').scrollIntoView({{ behavior: 'smooth', block: 'start' }}); }}); }});
+  var m = /[?&]fund=([a-z-]+)/.exec(location.search); choose(m ? m[1] : 'where-its-needed-most', false);
+}})();
+</script>'''
+og('give', 'assets/img/kids.webp')
+page('give.html', 'Give: Missions for Orphans', 'Give once or every month to orphan care, widows, community outreach or onsite projects in Kipsaina, Kenya. Tax deductible.', give, img='assets/img/og/give.jpg')
 
 def imgsize(rel):
   from PIL import Image
