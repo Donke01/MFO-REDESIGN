@@ -136,20 +136,32 @@ def page(fn, title, desc, body, depth=0, cur=None, img='assets/img/og/home.jpg',
 <main id="main">
 {body}
 </main>
-<footer><div class="wrap">
-  <div class="cols">
-    <div class="logo"><img src="{up}assets/img/heart.png" alt="Missions for Orphans" width="75" height="64">Kipsaina, near Kitale, Kenya{social_row()}</div>
-    <div class="f-contact"><b>Contact us</b><ul>
-      <li><a href="tel:+16026165557"><span class="fi fi-call" aria-hidden="true">{ICON_CALL}</span>602-616-5557</a></li>
-      <li><a href="{up}contact.html"><span class="fi fi-msg" aria-hidden="true">{ICON_MSG}</span>Send us a message</a></li>
-      <li><span class="fi fi-pin" aria-hidden="true">{ICON_PIN}</span><span>2497 N. Delaney Dr.<br>Buckeye, AZ 85396</span></li>
-      <li><a href="{up}faq.html"><span class="fi fi-faq" aria-hidden="true">{ICON_FAQ}</span>Questions</a></li>
-    </ul></div>
-    <div><b>More</b><ul><li><a href="{up}land.html">Our land and farm</a></li><li><a href="{up}schools.html">Schools and training</a></li><li><a href="{up}widow-homes.html">Fund a widow's home</a></li></ul></div>
-    <div><b>Give</b><ul><li><a href="{up}donate.html#monthly">Give every month</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li></ul></div>
+<footer class="foot">
+  <div class="wrap f-grid">
+    <div class="f-brand">
+      <a class="f-logo" href="{up}index.html"><img src="{up}assets/img/heart.png" alt="" width="75" height="64"><span>Missions for Orphans</span></a>
+      <p class="f-tag">Caring for the boys, widows and villages of Kipsaina since 2008.</p>
+      <ul class="f-contact">
+        <li><a href="tel:+16026165557"><span class="fi fi-call" aria-hidden="true">{ICON_CALL}</span>602-616-5557</a></li>
+        <li><a href="{up}contact.html"><span class="fi fi-msg" aria-hidden="true">{ICON_MSG}</span>Send us a message</a></li>
+        <li><span class="fi fi-pin" aria-hidden="true">{ICON_PIN}</span><span>2497 N. Delaney Dr., Buckeye, AZ 85396</span></li>
+      </ul>
+      {social_row()}
+    </div>
+    <div class="f-col"><h2 class="f-h">Our work</h2><ul><li><a href="{up}land.html">Our land and farm</a></li><li><a href="{up}schools.html">Schools and training</a></li><li><a href="{up}widow-homes.html">Fund a widow's home</a></li></ul></div>
+    <div class="f-col"><h2 class="f-h">Give</h2><ul><li><a href="{up}donate.html#monthly">Give every month</a></li><li><a href="{up}donate.html#ways">Other ways to give</a></li><li><a href="{up}faq.html">Questions</a></li></ul></div>
+    <div class="f-news"><h2 class="f-h">Updates by email</h2><p>Get Mama Lani's posts from Kenya in your inbox.</p>
+      <form class="f-form" action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" target="_blank">
+        <input type="hidden" name="action" value="subscribe"><input type="hidden" name="blog_id" value="241345081"><input type="hidden" name="source" value="{SITE}"><input type="hidden" name="sub-type" value="widget"><input type="hidden" name="redirect_fragment" value="blog_subscription-2">
+        <label class="sr" for="f-email">Email address</label><input id="f-email" type="email" name="email" placeholder="Your email" autocomplete="email" required>
+        <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <p class="f-small">You'll confirm on Lani's blog, run by WordPress.</p>
+    </div>
   </div>
-  <p class="legal">Missions for Orphans is a 501(c)(3) non-profit. Donations are tax deductible. © <span data-year>2026</span> Missions for Orphans.</p>
-</div></footer>
+  <div class="wrap f-legal"><p>Missions for Orphans is a 501(c)(3) non-profit, and donations are tax deductible. © <span data-year>2026</span></p><p>Kipsaina, near Kitale, Kenya</p></div>
+  <div class="f-land" aria-hidden="true"><img src="{up}assets/img/footer-land.svg" alt="" loading="lazy" width="1600" height="430"></div>
+</footer>
 <dialog class="lightbox" aria-label="Photo"><button type="button">Close</button><img src="" alt=""></dialog>
 <script src="{up}js/main.js?v={ver("js/main.js")}" defer></script>
 <script src="{up}js/motion.js?v={ver("js/motion.js")}" defer></script>{extra}
